@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import IMGBB_KEY from './../../../constant';
 
 const AddCategoryComp = () => {
     const {
@@ -22,7 +23,7 @@ const AddCategoryComp = () => {
             const formData = new FormData();
             formData.append("image", selectedFile);
 
-            const postToImgBB = await axios.post(`${process.env.IMGBB_API}?key=${process.env.IMGBB_KEY}`, formData);
+            const postToImgBB = await axios.post(`https://api.imgbb.com/1/upload?key=${IMGBB_KEY}`, formData);
             console.log(postToImgBB)
             if (postToImgBB.status === 200) {
                 setImg(postToImgBB.data.data.url);

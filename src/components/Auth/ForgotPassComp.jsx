@@ -1,19 +1,19 @@
 import React from 'react';
-import { FaRegEnvelope } from "react-icons/fa";
+import { CiLock } from "react-icons/ci";
 
 const ForgotPassComp = () => {
     const [email, setEmail] = useState("");
 
     const onForgetPass = async () => {
         try {
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER}/auth/forgetPassword/${email}`);
+            const res = await axios.patch(`${process.env.NEXT_PUBLIC_SERVER}/auth/forgetPassword/${email}`);
             console.log(res)
             if (res.status === 200) {
                 toast.success(res.data.message);
             }
         
         } catch (e) {
-            
+            console.log(e)
         }
         
     }
@@ -39,7 +39,7 @@ const ForgotPassComp = () => {
                                         />
 
                                         <span className="absolute right-4 top-4 text-2xl text-[#ddd]">
-                                            <FaRegEnvelope />
+                                            <CiLock />
                                         </span>
                                     </div>
                                 </div>
@@ -50,7 +50,6 @@ const ForgotPassComp = () => {
                                         className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                                     >Send Link</button>
                                 </div>
-
                             </form>
                         </div>
                     </div>

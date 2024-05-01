@@ -105,7 +105,7 @@ const EditCategoryComp = () => {
                         </div>
 
                         <div className='mb-4.5'>
-                            <Image src={category.image} alt={category.name} width={100} height={100} className="w-12 h-12 rounded-full mb-2" />
+                            <Image src={category.image} alt={category.name} width={100} height={100} className="w-32 h-18 rounded-md mb-2" />
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                                 Category Image
                             </label>

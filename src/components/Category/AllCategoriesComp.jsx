@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { FaRegEye } from "react-icons/fa";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
+import Link from "next/link";
 
 const AllCategoriesComp = () => {
     const [categories, setCategories] = useState([]);
@@ -93,9 +94,9 @@ const AllCategoriesComp = () => {
                                     </td>
                                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                         <div className="flex items-center space-x-3.5">
-                                            <button className="hover:text-warning text-xl">
+                                            <Link href={`/category/${category._id}`} className="hover:text-warning text-xl">
                                                 <FaRegPenToSquare />
-                                            </button>
+                                            </Link>
                                             <button onClick={() => deleteCategory(category._id)} className="hover:text-danger text-xl">
                                                 <MdDelete />
                                             </button>
