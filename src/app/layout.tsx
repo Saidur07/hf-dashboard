@@ -5,19 +5,24 @@ import "@/css/satoshi.css";
 import "@/css/style.css";
 import React, { useEffect, useState } from "react";
 import Loader from "@/components/common/Loader";
+import Cookies from 'js-cookie';
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+type LayoutProps = {
   children: React.ReactNode;
-}>) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+}
+
+export default function RootLayout({ children }: LayoutProps) {
   const [loading, setLoading] = useState<boolean>(true);
 
-  // const pathname = usePathname();
-
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
+    const token = Cookies.get("token");
+    const currentPath = window.location.pathname;
+    // Check if the current path is not the sign-in path and there's no token
+    if (currentPath !== "/auth/signin" && !token) {
+      window.location.href = "/auth/signin"; // Redirect to sign-in page
+    } else {
+      setTimeout(() => setLoading(false), 1000);
+    }
   }, []);
 
   return (
