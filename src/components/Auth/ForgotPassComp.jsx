@@ -1,5 +1,8 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 import { CiLock } from "react-icons/ci";
+import axios from "axios"
 
 const ForgotPassComp = () => {
     const [email, setEmail] = useState("");
@@ -21,11 +24,11 @@ const ForgotPassComp = () => {
         <div>
             <div className="h-screen my-auto rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark w-full flex justify-center items-center">
                 <div className="flex flex-wrap items-center w-full justify-center">
-                    <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
+                    <div className="w-full  xl:w-1/2 ">
                         <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-                            <span className="mb-1.5 block font-medium">Forgot Password</span>
+                            <span className="mb-1.5 block font-medium text-center text-3xl">Forgot Password</span>
 
-                            <form onSubmit={handleSubmit(onSignIn)}>
+                            <form >
                                 <div className="mb-4">
                                     <label className="mb-2.5 block font-medium text-black dark:text-white">
                                         Email

@@ -4,19 +4,19 @@ import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import ForgotPassComp from './../../../components/Auth/ForgotPassComp';
+import SignInComp from './../../../components/Auth/SignInComp';
 
 export const metadata: Metadata = {
-  title: "KOC Admin Dashboard | Forgot Password",
-  description: "This is KOC Admin Dashboard Forgot Password page",
+  title: "KOC Admin Dashboard | Sign In",
+  description: "This is KOC Admin Dashboard Sign in page",
 };
 
-const Forgot: React.FC = () => {
+const SignIn: React.FC = () => {
   return (
     <div>
-      <ForgotPassComp/>
+      <SignInComp/>
     </div>
   );
 };
 
-export default Forgot;
+export default SignIn;

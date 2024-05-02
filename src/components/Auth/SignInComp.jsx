@@ -29,6 +29,7 @@ const SignInComp = () => {
                 Cookies.set("token", res.data.data.accessToken);
                 Cookies.set("refreshToken", res.data.data.refreshToken);
                 Cookies.set("user_id", res.data.data.user_id);
+                Cookies.set("role", res.data.data.role);
                 window.location.href = "/";
             }
 
@@ -225,6 +226,7 @@ const SignInComp = () => {
                                             </span>
                                         </div>
                                     </div>
+                                    <Link href="/auth/forgot" className="text-end flex justify-end mb-6 text-blue-500 w-full">Forgot password?</Link>
 
                                     <div className="mb-5">
                                         <button
