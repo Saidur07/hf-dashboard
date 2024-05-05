@@ -10,7 +10,8 @@ const ResetPasswordComp = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPass] = useState("");
 
-    const onResetPass = async () => {
+    const onResetPass = async (e) => {
+        e.preventDefault(); // Prevent default form submission behavior
         try {
             const res = await axios.patch(`${process.env.NEXT_PUBLIC_SERVER}/auth/resetPassword/${token}`, {
                 password: password, 
@@ -34,7 +35,7 @@ const ResetPasswordComp = () => {
                         <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
                             <span className="mb-1.5 block font-medium">Reset Password</span>
 
-                            <form>
+                            <form onSubmit={onResetPass}>
                                 <div className="mb-4">
                                     <label className="mb-2.5 block font-medium text-black dark:text-white">
                                         Password
@@ -73,7 +74,6 @@ const ResetPasswordComp = () => {
                                 <div className="mb-5">
                                     <button
                                         type="submit"
-                                        onClick={() => onResetPass()}
                                         className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                                     >Reset</button>
                                 </div>
