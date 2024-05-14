@@ -69,9 +69,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${
-        sidebarOpen ? "translate-x-0" : "-translate-x-full"
-      }`}
+      className={`absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
@@ -120,7 +119,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("/") && "bg-graydark dark:bg-meta-4"
                     }`}
                 >
-                  <LuLayoutDashboard className="text-2xl"/>
+                  <LuLayoutDashboard className="text-2xl" />
                   Dashboard
                 </Link>
               </li>
@@ -147,11 +146,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     <React.Fragment>
                       <Link
                         href="#"
-                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          (pathname === "/category" ||
+                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === "/category" ||
                             pathname.includes("category")) &&
                           "bg-graydark dark:bg-meta-4"
-                        }`}
+                          }`}
                         onClick={(e) => {
                           e.preventDefault();
                           sidebarExpanded
@@ -159,12 +157,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             : setSidebarExpanded(true);
                         }}
                       >
-                       <IoOptions className="text-2xl"/>
+                        <IoOptions className="text-2xl" />
                         Category
                         <svg
-                          className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${
-                            open && "rotate-180"
-                          }`}
+                          className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && "rotate-180"
+                            }`}
                           width="20"
                           height="20"
                           viewBox="0 0 20 20"
@@ -181,18 +178,16 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       </Link>
                       {/* <!-- Dropdown Menu Start --> */}
                       <div
-                        className={`translate transform overflow-hidden ${
-                          !open && "hidden"
-                        }`}
+                        className={`translate transform overflow-hidden ${!open && "hidden"
+                          }`}
                       >
                         <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
                           <li>
                             <Link
                               href="/category/addCategory"
-                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                pathname === "/category/addCategory" &&
+                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${pathname === "/category/addCategory" &&
                                 "text-white"
-                              }`}
+                                }`}
                             >
                               Add Category
                             </Link>
@@ -200,10 +195,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           <li>
                             <Link
                               href="/category/allCategories"
-                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                pathname === "/category/allCategories" &&
+                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${pathname === "/category/allCategories" &&
                                 "text-white"
-                              } `}
+                                } `}
                             >
                               All Categories
                             </Link>
@@ -215,12 +209,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   );
                 }}
               </SidebarLinkGroup>
-              {/* <!-- Menu Item Forms --> */}
 
-{/* Skills */}
- <SidebarLinkGroup
+               <SidebarLinkGroup
                 activeCondition={
-                  pathname === "/skill" || pathname.includes("skill")
+                  pathname === "/subCategory" || pathname.includes("subCategory")
                 }
               >
                 {(handleClick, open) => {
@@ -228,11 +220,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     <React.Fragment>
                       <Link
                         href="#"
-                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          (pathname === "/skill" ||
-                            pathname.includes("skill")) &&
+                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === "/subCategory" ||
+                            pathname.includes("subCategory")) &&
                           "bg-graydark dark:bg-meta-4"
-                        }`}
+                          }`}
                         onClick={(e) => {
                           e.preventDefault();
                           sidebarExpanded
@@ -240,12 +231,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             : setSidebarExpanded(true);
                         }}
                       >
-                       <HiOutlineCircleStack className="text-2xl" />
-                        Skill
+                        <IoOptions className="text-2xl" />
+                        Sub Category
                         <svg
-                          className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${
-                            open && "rotate-180"
-                          }`}
+                          className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && "rotate-180"
+                            }`}
                           width="20"
                           height="20"
                           viewBox="0 0 20 20"
@@ -262,18 +252,92 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       </Link>
                       {/* <!-- Dropdown Menu Start --> */}
                       <div
-                        className={`translate transform overflow-hidden ${
-                          !open && "hidden"
-                        }`}
+                        className={`translate transform overflow-hidden ${!open && "hidden"
+                          }`}
+                      >
+                        <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
+                          <li>
+                            <Link
+                              href="/subCategory/addSubCategory"
+                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${pathname === "/subCategory/addSubCategory" &&
+                                "text-white"
+                                }`}
+                            >
+                              Add Sub Category
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/subCategory/allSubCats"
+                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${pathname === "/subCategory/allSubCats" &&
+                                "text-white"
+                                } `}
+                            >
+                              All Sub Categories
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      {/* <!-- Dropdown Menu End --> */}
+                    </React.Fragment>
+                  );
+                }}
+              </SidebarLinkGroup>
+              {/* <!-- Menu Item Forms --> */}
+
+              {/* Skills */}
+              <SidebarLinkGroup
+                activeCondition={
+                  pathname === "/skill" || pathname.includes("skill")
+                }
+              >
+                {(handleClick, open) => {
+                  return (
+                    <React.Fragment>
+                      <Link
+                        href="#"
+                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === "/skill" ||
+                            pathname.includes("skill")) &&
+                          "bg-graydark dark:bg-meta-4"
+                          }`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          sidebarExpanded
+                            ? handleClick()
+                            : setSidebarExpanded(true);
+                        }}
+                      >
+                        <HiOutlineCircleStack className="text-2xl" />
+                        Skill
+                        <svg
+                          className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && "rotate-180"
+                            }`}
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                            fill=""
+                          />
+                        </svg>
+                      </Link>
+                      {/* <!-- Dropdown Menu Start --> */}
+                      <div
+                        className={`translate transform overflow-hidden ${!open && "hidden"
+                          }`}
                       >
                         <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
                           <li>
                             <Link
                               href="/skill/addSkill"
-                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                pathname === "/skill/addSkill" &&
+                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${pathname === "/skill/addSkill" &&
                                 "text-white"
-                              }`}
+                                }`}
                             >
                               Add Skill
                             </Link>
@@ -281,10 +345,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           <li>
                             <Link
                               href="/skill/allSkills"
-                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                pathname === "/skill/allSkills" &&
+                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${pathname === "/skill/allSkills" &&
                                 "text-white"
-                              } `}
+                                } `}
                             >
                               All Skills
                             </Link>
@@ -300,11 +363,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li>
                 <Link
                   href="/users/allUsers"
-                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("users") && "bg-graydark dark:bg-meta-4"
-                  }`}
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("users") && "bg-graydark dark:bg-meta-4"
+                    }`}
                 >
-                  <BsPeople className="text-2xl"/>
+                  <BsPeople className="text-2xl" />
                   Users
                 </Link>
               </li>
@@ -314,12 +376,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li>
                 <Link
                   href="/settings"
-                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("settings") &&
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("settings") &&
                     "bg-graydark dark:bg-meta-4"
-                  }`}
+                    }`}
                 >
-                  <CiSettings className="text-2xl"/>
+                  <CiSettings className="text-2xl" />
                   Settings
                 </Link>
               </li>
@@ -327,7 +388,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </ul>
           </div>
 
-         
+
         </nav>
         {/* <!-- Sidebar Menu --> */}
       </div>

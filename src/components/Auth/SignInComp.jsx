@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import axios from "axios";
 import Cookies from 'js-cookie'
 import instance from "@/axios/axios";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const SignInComp = () => {
@@ -31,10 +32,13 @@ const SignInComp = () => {
                 Cookies.set("user_id", res.data.data.user_id);
                 Cookies.set("role", res.data.data.role);
                 window.location.href = "/";
+            }else{
+                toast.error("Couldn't login. try again")
             }
 
         } catch (e) {
             console.log(e)
+            toast.error("Couldn't login. try again")
         }
     }
 
@@ -240,6 +244,7 @@ const SignInComp = () => {
                         </div>
                     </div>
                     </div>
+                    <ToastContainer />
             </div>
         </>
     );

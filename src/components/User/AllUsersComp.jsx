@@ -118,7 +118,7 @@ const AllUsersComp = () => {
                                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex items-center gap-x-2">
                                         <Link className="text-black dark:text-white" 
                                         rel="noopener noreferrer" target="_blank"
-                                         href={`https://koc-client.vercel.app/profile/${user._id}`}>
+                                         href={`https://koc-chat.vercel.app/profile/${user?._id}`}>
                                            {user.first_name} {user.lastName}
                                         </Link>
                                     </td>
@@ -128,7 +128,7 @@ const AllUsersComp = () => {
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex items-center gap-x-2">
-                                        <p className="text-black dark:text-white capitalize">
+                                        <p className="text-black dark:text-white capitalize w-[80px]">
                                             {user.email}
                                         </p>
                                     </td>
