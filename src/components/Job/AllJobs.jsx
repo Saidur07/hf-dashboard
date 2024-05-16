@@ -163,7 +163,7 @@ const AllJobsComp = () => {
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex items-center gap-x-2">
-                                        <Link href={`https://koc-client.vercel.app/job/${job?._id}`} className="text-black dark:text-white capitalize text-xl">
+                                        <Link href={`https://koc-chat.vercel.app/job/${job?._id}`} className="text-black dark:text-white capitalize text-xl">
                                             <FaRegEye />
                                         </Link>
                                         <button onClick={() => deleteJob(job._id)} className="hover:text-danger text-xl">

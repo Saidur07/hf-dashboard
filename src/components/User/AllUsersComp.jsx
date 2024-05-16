@@ -80,42 +80,34 @@ const AllUsersComp = () => {
                 <div className="max-w-full overflow-x-auto">
                     <table className="w-full table-auto">
                         <thead>
-                            <tr className="bg-gray-2 text-left dark:bg-meta-4 grid grid-cols-8">
-                                <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
-                                    #
-                                </th>
-                                <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
+                            <tr className="bg-gray-2 text-left dark:bg-meta-4 grid grid-cols-6">
+                                <th className=" px-4 py-4 font-medium text-black dark:text-white">
                                     Name
                                 </th>
-                                <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
+                                <th className=" px-4 py-4 font-medium text-black dark:text-white">
                                     Role
                                 </th>
-                                <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
+                                <th className=" px-4 py-4 font-medium text-black dark:text-white">
                                     Email
                                 </th>
-                                <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
-                                    Country
-                                </th>
-                                <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
+                                <th className=" px-4 py-4 font-medium text-black dark:text-white">
                                     Overall Rating
                                 </th>
-                                <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
+                                <th className=" px-4 py-4 font-medium text-black dark:text-white">
                                     Hourly Rate
                                 </th>
-                                <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
+                                <th className=" px-4 py-4 font-medium text-black dark:text-white">
                                     Actions
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             {currentUsers.map((user, index) => (
-                                <tr key={user._id} className="grid grid-cols-8">
-                                    <td className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
+                                <tr key={user._id} className="grid grid-cols-6 !text-[14px]">
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex  gap-x-2">
                                         <h5 className="font-medium text-black dark:text-white">
                                             {(currentPage - 1) * itemsPerPage + index + 1}
                                         </h5>
-                                    </td>
-                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex items-center gap-x-2">
                                         <Link className="text-black dark:text-white" 
                                         rel="noopener noreferrer" target="_blank"
                                          href={`https://koc-chat.vercel.app/profile/${user?._id}`}>
@@ -127,16 +119,14 @@ const AllUsersComp = () => {
                                             {user.role}
                                         </p>
                                     </td>
-                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex items-center gap-x-2">
-                                        <p className="text-black dark:text-white capitalize w-[80px]">
-                                            {user.email}
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex items-center w-[180px]">
+                                        <p className="text-black dark:text-white capitalize w-full max-w-[180px] overflow-x-scroll">
+                                            <span className="inline-block max-w-[180px] text-wrap">
+                                                {user.email}
+                                            </span>
                                         </p>
                                     </td>
-                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex items-center gap-x-2">
-                                        <p className="text-black dark:text-white capitalize">
-                                            {user?.profile?.country}
-                                        </p>
-                                    </td>
+
                                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex items-center gap-x-2">
                                         <p className="text-black dark:text-white capitalize flex items-center gap-x-2">
                                             {user?.profile?.overall_rating} <FaStar />

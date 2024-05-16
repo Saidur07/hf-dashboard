@@ -241,3 +241,45 @@ input[type="search"]::-webkit-search-cancel-button {
 [x-cloak] {
     display: none !important;
 }
+
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chat-bubble-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.chat-bubble {
+  max-width: 70%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  word-wrap: break-word;
+  color: #000;
+  font-weight: 500;
+}
+
+.chat-bubble p {
+  margin: 0;
+}
+
+.chat-bubble.operator {
+  background-color: #DCF8C6;
+  align-self: flex-end;
+}
+
+.chat-bubble.peer {
+  background-color: #E5E5EA;
+  align-self: flex-start;
+}
+
+.time {
+  font-size: 0.8rem;
+  color: #666;
+}

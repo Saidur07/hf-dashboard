@@ -6,13 +6,13 @@ import Link from "next/link";
 import Image from "next/image";
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import { PiBagSimpleLight } from "react-icons/pi";
-import { IoOptions } from "react-icons/io5";
+import { IoOptions, IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { HiOutlineCircleStack } from "react-icons/hi2";
 import { BsPeople } from "react-icons/bs";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { PiPasswordLight } from "react-icons/pi";
 import { CiSettings } from "react-icons/ci";
-
+import { FaPeopleGroup } from "react-icons/fa6";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -372,6 +372,92 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </li>
               {/* <!-- Menu Item Tables --> */}
 
+              {/* admin */}
+              <SidebarLinkGroup
+                activeCondition={
+                  pathname === "/admin" || pathname.includes("admin")
+                }
+              >
+                {(handleClick, open) => {
+                  return (
+                    <React.Fragment>
+                      <Link
+                        href="#"
+                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === "/admin" ||
+                          pathname.includes("admin")) &&
+                          "bg-graydark dark:bg-meta-4"
+                          }`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          sidebarExpanded
+                            ? handleClick()
+                            : setSidebarExpanded(true);
+                        }}
+                      >
+                        <FaPeopleGroup className="text-2xl" />
+                        Admin
+                        <svg
+                          className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && "rotate-180"
+                            }`}
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                            fill=""
+                          />
+                        </svg>
+                      </Link>
+                      {/* <!-- Dropdown Menu Start --> */}
+                      <div
+                        className={`translate transform overflow-hidden ${!open && "hidden"
+                          }`}
+                      >
+                        <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
+                          <li>
+                            <Link
+                              href="/admin/addAdmin"
+                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${pathname === "/admin/addAdmin" &&
+                                "text-white"
+                                }`}
+                            >
+                              Add Admin
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href="/admin/allAdmins"
+                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${pathname === "/admin/allAdmins" &&
+                                "text-white"
+                                } `}
+                            >
+                              All Admins
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      {/* <!-- Dropdown Menu End --> */}
+                    </React.Fragment>
+                  );
+                }}
+              </SidebarLinkGroup>
+
+              {/* chat */}
+              <li>
+                <Link
+                  href="/chat/allChats"
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("chat") && "bg-graydark dark:bg-meta-4"
+                    }`}
+                >
+                  <IoChatbubbleEllipsesOutline className="text-2xl" />
+                  Chat
+                </Link>
+              </li>
               {/* <!-- Menu Item Settings --> */}
               <li>
                 <Link
