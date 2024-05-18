@@ -47,7 +47,7 @@ const AllJobsComp = () => {
 
     const filteredJobs = jobs.filter(job => {
         return (
-            (job.title.toLowerCase().includes(searchTerm.toLowerCase()) || searchTerm === "") &&
+            (job.title.toLowerCase().includes(searchTerm.toLowerCase()) || searchTerm === "") ||
             (job.status === statusFilter || statusFilter === "")
         );
     });
