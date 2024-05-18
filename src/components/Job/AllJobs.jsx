@@ -13,6 +13,9 @@ const AllJobsComp = () => {
     const [jobs, setJobs] = useState([]);
     const [categories, setCategories] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [statusFilter, setStatusFilter] = useState("");
+
     useEffect(() => {
         const getJobs = async () => {
             try {
@@ -42,20 +45,26 @@ const AllJobsComp = () => {
         getJobs()
     }, [])
 
+    const filteredJobs = jobs.filter(job => {
+        return (
+            (job.title.toLowerCase().includes(searchTerm.toLowerCase()) || searchTerm === "") &&
+            (job.status === statusFilter || statusFilter === "")
+        );
+    });
     const itemsPerPage = 10;
-    const totalPages = Math.ceil(jobs.length / itemsPerPage);
-
+    const totalPages = Math.ceil(filteredJobs.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const currentjobs = jobs.slice(startIndex, endIndex);
+    const currentJobs = filteredJobs.slice(startIndex, endIndex);
 
     const nextPage = () => {
         setCurrentPage(prev => Math.min(prev + 1, totalPages));
-    }
+    };
 
     const prevPage = () => {
         setCurrentPage(prev => Math.max(prev - 1, 1));
-    }
+    };
+
 
   const findCategoryNameById = (id) => {
         const category = categories.find(category => category._id === id);
@@ -78,6 +87,26 @@ const AllJobsComp = () => {
         <div>
                     <h2 className="text-3xl mb-2 text-[#fff]">All Jobs</h2>
             <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+                <div className="max-w-full overflow-x-auto mb-4">
+                    <input
+                        type="text"
+                        placeholder="Search by job name"
+                        value={searchTerm}
+                        onChange={e => setSearchTerm(e.target.value)}
+                        className="p-2 border rounded-md mr-2"
+                    />
+                    <select
+                        value={statusFilter}
+                        onChange={e => setStatusFilter(e.target.value)}
+                        className="p-2 border rounded-md"
+                    >
+                        <option value="">All Statuses</option>
+                        <option value="Completed">Completed</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Cancelled">Cancelled</option>
+                        <option value="Open">Open</option>
+                    </select>
+                </div>
                 <div className="max-w-full overflow-x-auto">
                     <table className="w-full table-auto">
                         <thead>
@@ -115,7 +144,7 @@ const AllJobsComp = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {currentjobs.map((job, index) => (
+                            {currentJobs.map((job, index) => (
                                 <tr key={job._id} className="grid grid-cols-10">
                                     <td className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
                                         <h5 className="font-medium text-black dark:text-white">
