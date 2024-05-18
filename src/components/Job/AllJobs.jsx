@@ -87,7 +87,7 @@ const AllJobsComp = () => {
         <div>
                     <h2 className="text-3xl mb-2 text-[#fff]">All Jobs</h2>
             <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-                <div className="max-w-full overflow-x-auto mb-4">
+                <div className="max-w-full overflow-x-auto mb-4 flex gap-x-4">
                     <input
                         type="text"
                         placeholder="Search by job name"
@@ -98,7 +98,7 @@ const AllJobsComp = () => {
                     <select
                         value={statusFilter}
                         onChange={e => setStatusFilter(e.target.value)}
-                        className="p-2 border rounded-md w-full"
+                        className="p-2 border rounded-md max-w-lg"
                     >
                         <option value="">All Statuses</option>
                         <option value="Completed">Completed</option>
