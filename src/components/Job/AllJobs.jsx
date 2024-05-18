@@ -93,17 +93,17 @@ const AllJobsComp = () => {
                         placeholder="Search by job name"
                         value={searchTerm}
                         onChange={e => setSearchTerm(e.target.value)}
-                        className="p-2 border rounded-md mr-2"
+                        className="p-2 border rounded-md mr-2 w-full"
                     />
                     <select
                         value={statusFilter}
                         onChange={e => setStatusFilter(e.target.value)}
-                        className="p-2 border rounded-md"
+                        className="p-2 border rounded-md w-full"
                     >
                         <option value="">All Statuses</option>
                         <option value="Completed">Completed</option>
                         <option value="In Progress">In Progress</option>
-                        <option value="Cancelled">Cancelled</option>
+                        <option value="Canceled">Cancelled</option>
                         <option value="Open">Open</option>
                     </select>
                 </div>
