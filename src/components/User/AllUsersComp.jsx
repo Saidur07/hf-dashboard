@@ -32,8 +32,7 @@ const AllUsersComp = () => {
         getUsers()
     }, [])
     const filteredUsers = users.filter(user =>
-        user.first_name.toLowerCase().includes(search.toLowerCase()) ||
-        user.lastName.toLowerCase().includes(search.toLowerCase())
+        user.email.toLowerCase().includes(search.toLowerCase())
     );
 
     const itemsPerPage = 20;
@@ -74,7 +73,7 @@ const AllUsersComp = () => {
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Search by name"
+                    placeholder="Search by email"
                     className="px-4 py-3 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary w-[60%]"
                 />
                 <div className="max-w-full overflow-x-auto">
@@ -120,8 +119,8 @@ const AllUsersComp = () => {
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex items-center w-[180px]">
-                                        <p className="text-black dark:text-white capitalize w-full max-w-[180px] overflow-x-scroll">
-                                            <span className="inline-block max-w-[180px] text-wrap">
+                                        <p className="text-black dark:text-white w-full max-w-[180px] overflow-x-scroll">
+                                            <span className="inline-block max-w-[220px] text-wrap">
                                                 {user.email}
                                             </span>
                                         </p>

@@ -56,7 +56,7 @@ const AddSubCategoryComp = () => {
     const onAddSubCategory = async (data) => {
         try {
             const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER}/subCategory/create`,
-                { ...data, image: img }, {
+                { ...data, image: img, category: selectedOption }, {
                 headers: {
                     authorization: `${token}`,
                 },
@@ -77,9 +77,10 @@ const AddSubCategoryComp = () => {
         }
     }, [selectedFile]);
 
-        const changeTextColor = () => {
+     const changeTextColor = () => {
         setIsOptionSelected(true);
     };
+    console.log(selectedOption)
 
     return (
         <div>
@@ -96,13 +97,13 @@ const AddSubCategoryComp = () => {
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                                 Category
                             </label>
-                            <select
+                             <select
                                 value={selectedOption}
                                 onChange={(e) => {
                                     setSelectedOption(e.target.value);
                                     changeTextColor();
                                 }}
-                                {...register("category", { required: true })}
+                                // {...register("category", { required: true })}
                                 className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent ps-6 pr-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input ${isOptionSelected ? "text-black dark:text-white" : ""
                                     }`}
                             >
