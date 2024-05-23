@@ -7,7 +7,7 @@ import Image from "next/image";
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import { PiBagSimpleLight } from "react-icons/pi";
 import { IoOptions, IoChatbubbleEllipsesOutline } from "react-icons/io5";
-import { HiOutlineCircleStack } from "react-icons/hi2";
+import { HiOutlineCircleStack, HiOutlineBanknotes } from "react-icons/hi2";
 import { BsPeople } from "react-icons/bs";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { PiPasswordLight } from "react-icons/pi";
@@ -459,6 +459,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </Link>
               </li>
               {/* <!-- Menu Item Settings --> */}
+              <li>
+                <Link
+                  href="/withdrawalRequests"
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("withdrawalRequests") &&
+                    "bg-graydark dark:bg-meta-4"
+                    }`}
+                >
+                  <HiOutlineBanknotes className="text-2xl" />
+                  Withdrawal Requests
+                </Link>
+              </li>
               <li>
                 <Link
                   href="/settings"
