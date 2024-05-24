@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import IMGBB_KEY from '../../../constant';
 import { IoIosArrowDown } from 'react-icons/io';
+import Link from "next/link"
 
 const ChatComp = () => {
   const {
@@ -36,7 +37,7 @@ const ChatComp = () => {
         MaxTime: maxTimestamp
       });
 
-      console.log(res)
+      console.log(res.data)
 
       if (res.status === 200) {
         setMessages(res.data);
@@ -116,7 +117,16 @@ console.log(messages)
             <div className="chat-bubble-container">
               {messages?.MsgList && messages?.MsgList.map((msg, index) => (
                 <div key={index} className={`chat-bubble ${msg.From_Account === operator ? 'operator' : 'peer'}`}>
-                  <p>{msg.MsgBody[0].MsgContent.Text}</p>
+                  <p>{msg.MsgBody[0].MsgType === "TIMTextElem" && msg.MsgBody[0].MsgContent.Text}</p>
+                  {msg.MsgBody[0].MsgType === "TIMFileElem" &&  
+                  <div className="">
+                    <Link 
+                    href={msg.MsgBody[0].MsgContent.Url} 
+                    target="_blank" 
+                    className="hover:underline text-blue-500">{msg.MsgBody[0].MsgContent.FileName}</Link>
+                    </div>
+                    }
+                 
                   <p className="time">{msg.From_Account}</p>
                   <p className="time">{new Date(msg.MsgTimeStamp * 1000).toLocaleString()}</p>
                 </div>
