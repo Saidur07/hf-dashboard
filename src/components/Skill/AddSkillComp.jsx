@@ -83,10 +83,10 @@ const AddSkillComp = () => {
 
     return (
         <div>
-            <h2 className="text-3xl font-semibold mb-2">Add Skill</h2>
+            <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Add Skill</h2>
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-                    <h3 className="font-medium text-black dark:text-white">
+                    <h3 className="font-medium text-black dark:text-white lg:md:text-2xl text-lg">
                         Add Skill
                     </h3>
                 </div>

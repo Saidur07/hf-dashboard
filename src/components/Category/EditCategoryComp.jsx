@@ -56,11 +56,11 @@ const EditCategoryComp = () => {
     const onEditCategory = async (data) => {
         try {
             const res = await axios.patch(`${process.env.NEXT_PUBLIC_SERVER}/category/${id}`,
-                { 
+                {
                     name: data.name ? data.name : category.name,
                     image: img ? img : category.image,
                     description: data.description ? data.description : category.description
-                 }, {
+                }, {
                 headers: {
                     authorization: `${token}`,
                 },
@@ -82,10 +82,10 @@ const EditCategoryComp = () => {
     }, [selectedFile]);
     return (
         <div>
-            <h2 className="text-3xl font-semibold mb-2">Edit Category</h2>
+            <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Edit Category</h2>
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-                    <h3 className="font-medium text-black dark:text-white">
+                    <h3 className="font-medium text-black dark:text-white lg:md:text-2xl text-lg">
                         Edit Category
                     </h3>
                 </div>

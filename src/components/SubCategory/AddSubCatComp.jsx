@@ -19,7 +19,7 @@ const AddSubCategoryComp = () => {
     const token = Cookies.get('token');
     const [categories, setCategories] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
-     const [isOptionSelected, setIsOptionSelected] = useState(false);
+    const [isOptionSelected, setIsOptionSelected] = useState(false);
     const [selectedOption, setSelectedOption] = useState("");
     const [img, setImg] = useState('');
 
@@ -77,17 +77,17 @@ const AddSubCategoryComp = () => {
         }
     }, [selectedFile]);
 
-     const changeTextColor = () => {
+    const changeTextColor = () => {
         setIsOptionSelected(true);
     };
     console.log(selectedOption)
 
     return (
         <div>
-            <h2 className="text-3xl font-semibold mb-2">Add Sub Category</h2>
+            <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Add Sub Category</h2>
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-                    <h3 className="font-medium text-black dark:text-white">
+                    <h3 className="font-medium text-black dark:text-white lg:md:text-2xl text-lg">
                         Add Sub Category
                     </h3>
                 </div>
@@ -97,7 +97,7 @@ const AddSubCategoryComp = () => {
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                                 Category
                             </label>
-                             <select
+                            <select
                                 value={selectedOption}
                                 onChange={(e) => {
                                     setSelectedOption(e.target.value);
@@ -121,7 +121,7 @@ const AddSubCategoryComp = () => {
                         </div>
                         <div className="mb-4.5">
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                               Sub Category Name
+                                Sub Category Name
                             </label>
                             <input
                                 type="text"
@@ -133,7 +133,7 @@ const AddSubCategoryComp = () => {
 
                         <div className='mb-4.5'>
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                              Sub  Category Image
+                                Sub  Category Image
                             </label>
                             <input
                                 type="file"

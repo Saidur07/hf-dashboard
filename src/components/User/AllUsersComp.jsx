@@ -68,89 +68,90 @@ const AllUsersComp = () => {
     return (
         <div>
             <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-                <h2 className="text-3xl bold mb-2">All Users</h2>
+                <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">All Users</h2>
                 <input
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Search by email"
-                    className="px-4 py-3 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary w-[60%]"
+                    className="lg:md:px-4 px-2 lg:md:py-3 py-2 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary w-[60%]"
                 />
-                <div className="max-w-full overflow-x-auto">
-                    <table className="w-full table-auto">
-                        <thead>
-                            <tr className="bg-gray-2 text-left dark:bg-meta-4 grid grid-cols-6">
-                                <th className=" px-4 py-4 font-medium text-black dark:text-white">
-                                    Name
-                                </th>
-                                <th className=" px-4 py-4 font-medium text-black dark:text-white">
-                                    Role
-                                </th>
-                                <th className=" px-4 py-4 font-medium text-black dark:text-white">
-                                    Email
-                                </th>
-                                <th className=" px-4 py-4 font-medium text-black dark:text-white">
-                                    Overall Rating
-                                </th>
-                                <th className=" px-4 py-4 font-medium text-black dark:text-white">
-                                    Hourly Rate
-                                </th>
-                                <th className=" px-4 py-4 font-medium text-black dark:text-white">
-                                    Actions
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {currentUsers.map((user, index) => (
-                                <tr key={user._id} className="grid grid-cols-6 !text-[14px]">
-                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex  gap-x-2">
-                                        <h5 className="font-medium text-black dark:text-white">
-                                            {(currentPage - 1) * itemsPerPage + index + 1}
-                                        </h5>
-                                        <Link className="text-black dark:text-white" 
-                                        rel="noopener noreferrer" target="_blank"
-                                         href={`https://koc-chat.vercel.app/profile/${user?._id}`}>
-                                           {user.first_name} {user.lastName}
-                                        </Link>
-                                    </td>
-                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex items-center gap-x-2">
-                                        <p className="text-black dark:text-white capitalize">
-                                            {user.role}
-                                        </p>
-                                    </td>
-                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex items-center w-[180px]">
-                                        <p className="text-black dark:text-white w-full max-w-[180px] overflow-x-scroll">
-                                            <span className="inline-block max-w-[220px] text-wrap">
-                                                {user.email}
-                                            </span>
-                                        </p>
-                                    </td>
-
-                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex items-center gap-x-2">
-                                        <p className="text-black dark:text-white capitalize flex items-center gap-x-2">
-                                            {user?.profile?.overall_rating} <FaStar />
-                                        </p>
-                                    </td>
-                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex items-center gap-x-2">
-                                        <p className="text-black dark:text-white capitalize">
-                                            ₺{user?.profile?.hourly_rate}
-                                        </p>
-                                    </td>
-                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                        <div className="flex items-center space-x-3.5">
-                                            <Link href={`/users/${user._id}`} className="hover:text-warning text-xl">
-                                                <FaRegPenToSquare />
-                                            </Link>
-                                            <button onClick={() => deleteUser(user._id)} className="hover:text-danger text-xl">
-                                                <MdDelete />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+              <div className="max-w-full overflow-x-auto">
+    <table className="w-full table-auto">
+        <thead>
+            <tr className="bg-gray-200 text-left dark:bg-meta-4">
+                <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
+                    Name
+                </th>
+                <th className="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
+                    Role
+                </th>
+                <th className="min-w-[200px] px-4 py-4 font-medium text-black dark:text-white">
+                    Email
+                </th>
+                <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
+                    Overall Rating
+                </th>
+                <th className="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
+                    Hourly Rate
+                </th>
+                <th className="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {currentUsers.map((user, index) => (
+                <tr key={user._id} className="!text-[14px]">
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                        <div className="flex items-center gap-x-2">
+                            <h5 className="font-medium text-black dark:text-white">
+                                {(currentPage - 1) * itemsPerPage + index + 1}
+                            </h5>
+                            <Link className="text-black dark:text-white" rel="noopener noreferrer" target="_blank" href={`https://koc-chat.vercel.app/profile/${user?._id}`}>
+                                {user.first_name} {user.lastName}
+                            </Link>
+                        </div>
+                    </td>
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                        <p className="text-black dark:text-white capitalize">
+                            {user.role}
+                        </p>
+                    </td>
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                        <p className="text-black dark:text-white w-full max-w-[180px] overflow-x-scroll">
+                            <span className="inline-block max-w-[220px]">
+                                {user.email}
+                            </span>
+                        </p>
+                    </td>
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                        <div className="flex items-center gap-x-2">
+                            <p className="text-black dark:text-white capitalize flex items-center gap-x-2">
+                                {user?.profile?.overall_rating} <FaStar />
+                            </p>
+                        </div>
+                    </td>
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                        <p className="text-black dark:text-white capitalize">
+                            ₺{user?.profile?.hourly_rate}
+                        </p>
+                    </td>
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                        <div className="flex items-center space-x-3.5">
+                            <Link href={`/users/${user._id}`} className="hover:text-warning text-xl">
+                                <FaRegPenToSquare />
+                            </Link>
+                            <button onClick={() => deleteUser(user._id)} className="hover:text-danger text-xl">
+                                <MdDelete />
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            ))}
+        </tbody>
+    </table>
+</div>
 
             </div>
             <div className="flex gap-x-4 items-center justify-center mt-4">
@@ -169,7 +170,7 @@ const AllUsersComp = () => {
                     Next
                 </button>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </div>
     );
 };

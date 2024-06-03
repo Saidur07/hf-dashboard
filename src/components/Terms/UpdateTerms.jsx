@@ -37,7 +37,7 @@ const UpdateTerms = () => {
     const onUpdateTerms = async (data) => {
         try {
             const res = await axios.patch(`${process.env.NEXT_PUBLIC_SERVER}/misc/terms`,
-                { 
+                {
                     content: data.content ? data.content : terms.content,
                     _id: terms._id
                 }, {
@@ -57,10 +57,10 @@ const UpdateTerms = () => {
 
     return (
         <div>
-            <h2 className="text-3xl font-semibold mb-2">Update Terms</h2>
+            <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Update Terms</h2>
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-                    <h3 className="font-medium text-black dark:text-white">
+                    <h3 className="font-medium text-black dark:text-white lg:md:text-2xl text-lg">
                         Update Terms
                     </h3>
                 </div>
@@ -72,7 +72,7 @@ const UpdateTerms = () => {
                             </label>
                             <textarea
                                 rows={12}
-                                defaultValue={terms?.content}                                
+                                defaultValue={terms?.content}
                                 placeholder="Description"
                                 {...register("content")}
                                 className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"

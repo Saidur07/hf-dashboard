@@ -37,7 +37,7 @@ const TableThree = () => {
               <th className="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
                 Package
               </th>
-              <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
+              <th className="lg:md:min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
                 Invoice date
               </th>
               <th className="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">
@@ -64,13 +64,12 @@ const TableThree = () => {
                 </td>
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <p
-                    className={`inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium ${
-                      packageItem.status === "Paid"
+                    className={`inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium ${packageItem.status === "Paid"
                         ? "bg-success text-success"
                         : packageItem.status === "Unpaid"
                           ? "bg-danger text-danger"
                           : "bg-warning text-warning"
-                    }`}
+                      }`}
                   >
                     {packageItem.status}
                   </p>

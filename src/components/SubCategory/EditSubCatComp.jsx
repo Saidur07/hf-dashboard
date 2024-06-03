@@ -22,7 +22,7 @@ const EditSubCatComp = () => {
     const [img, setImg] = useState('');
     const { id } = useParams();
     const [subCat, setSubsubCat] = useState({});
-     const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState([]);
 
     const getSinglesubCat = async () => {
         try {
@@ -73,12 +73,12 @@ const EditSubCatComp = () => {
         console.log("in")
         try {
             const res = await axios.patch(`${process.env.NEXT_PUBLIC_SERVER}/subCategory/${id}`,
-                { 
+                {
                     category: subCat.category,
                     name: data.name ? data.name : subCat.name,
                     image: img ? img : subCat.image,
                     description: data.description ? data.description : subCat.description
-                 }, {
+                }, {
                 headers: {
                     authorization: `${token}`,
                 },
@@ -93,7 +93,7 @@ const EditSubCatComp = () => {
         }
     }
 
-      const findCategoryNameById = (id) => {
+    const findCategoryNameById = (id) => {
         const category = categories.find(category => category._id === id);
         return category ? category.name : 'Category not found';
     };
@@ -105,16 +105,16 @@ const EditSubCatComp = () => {
     }, [selectedFile]);
     return (
         <div>
-            <h2 className="text-3xl font-semibold mb-2">Edit subCat</h2>
+            <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Edit subCat</h2>
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-                    <h3 className="font-medium text-black dark:text-white">
+                    <h3 className="font-medium text-black dark:text-white lg:md:text-2xl text-lg">
                         Edit subCat
                     </h3>
                 </div>
                 <form action="#" onSubmit={handleSubmit(onEditsubCat)}>
                     <div className="p-6.5">
-                         <div className="relative z-20 bg-white dark:bg-form-input  mb-4.5">
+                        <div className="relative z-20 bg-white dark:bg-form-input  mb-4.5">
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                                 Category
                             </label>
@@ -171,12 +171,12 @@ const EditSubCatComp = () => {
                             ></textarea>
                         </div>
 
-                       <button
-    type="submit"
-    className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
->
-    Edit subCat
-</button>
+                        <button
+                            type="submit"
+                            className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
+                        >
+                            Edit subCat
+                        </button>
 
                     </div>
                 </form>

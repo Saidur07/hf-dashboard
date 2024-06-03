@@ -6,7 +6,7 @@ const DarkModeSwitcher = () => {
   return (
     <li>
       <label
-        className={`relative m-0 block h-7.5 w-14 rounded-full ${
+        className={`relative m-0 block lg:md:h-7.5 h-6 lg:md:w-14 w-10 rounded-full ${
           colorMode === "dark" ? "bg-primary" : "bg-stroke"
         }`}
       >

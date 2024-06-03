@@ -47,13 +47,13 @@ const ChatComp = () => {
       console.log(e)
     }
   };
-console.log(messages)
+  console.log(messages)
   return (
     <div>
-      <h2 className="text-3xl font-semibold mb-2">Search Conversation</h2>
+      <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Search Conversation</h2>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-          <h3 className="font-medium text-black dark:text-white">
+          <h3 className="font-medium text-black dark:text-white lg:md:text-2xl text-lg">
             Search Conversation
           </h3>
         </div>
@@ -118,15 +118,15 @@ console.log(messages)
               {messages?.MsgList && messages?.MsgList.map((msg, index) => (
                 <div key={index} className={`chat-bubble ${msg.From_Account === operator ? 'operator' : 'peer'}`}>
                   <p>{msg.MsgBody[0].MsgType === "TIMTextElem" && msg.MsgBody[0].MsgContent.Text}</p>
-                  {msg.MsgBody[0].MsgType === "TIMFileElem" &&  
-                  <div className="">
-                    <Link 
-                    href={msg.MsgBody[0].MsgContent.Url} 
-                    target="_blank" 
-                    className="hover:underline text-blue-500">{msg.MsgBody[0].MsgContent.FileName}</Link>
+                  {msg.MsgBody[0].MsgType === "TIMFileElem" &&
+                    <div className="">
+                      <Link
+                        href={msg.MsgBody[0].MsgContent.Url}
+                        target="_blank"
+                        className="hover:underline text-blue-500">{msg.MsgBody[0].MsgContent.FileName}</Link>
                     </div>
-                    }
-                 
+                  }
+
                   <p className="time">{msg.From_Account}</p>
                   <p className="time">{new Date(msg.MsgTimeStamp * 1000).toLocaleString()}</p>
                 </div>
