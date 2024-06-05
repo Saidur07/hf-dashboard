@@ -28,7 +28,7 @@ const AllAdminsComp = () => {
 
     const deleteAdmin = async (email) => {
         try {
-            const res = await axios.patch(`${process.env.NEXT_PUBLIC_SERVER}/deleteAdmin`, { email });
+            const res = await axios.patch(`${process.env.NEXT_PUBLIC_SERVER}/user/deleteAdmin/${email}`);
 
             if (res.status === 200) {
                 toast.success(res.data.message);
