@@ -6,6 +6,8 @@ import React, { useEffect, useState } from 'react';
 import { FaRegEye } from "react-icons/fa";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AllAdminsComp = () => {
     const [admins, setAdmins] = useState([]);
@@ -87,6 +89,7 @@ const AllAdminsComp = () => {
     </table>
 </div>
             </div>
+              <ToastContainer />
         </div>
     );
 };

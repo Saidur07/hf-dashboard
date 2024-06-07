@@ -8,7 +8,7 @@ import AddAdminComp from './../../../components/Admin/AddAdmin';
 
 export const metadata: Metadata = {
     title: "Add Admin | KOC Admin Dashboard",
-    description: "This is KOC Admin Dashboard Add Admin page",
+    description: "This is KOC Admin Dashboard Add Admin page ",
 };
 
 const AddAdmin: React.FC = () => {

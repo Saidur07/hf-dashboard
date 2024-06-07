@@ -61,13 +61,14 @@ const AddSkillComp = () => {
                     authorization: `${token}`,
                 },
             });
-            console.log(res);
             if (res.status === 200) {
-                console.log(res.data.data);
                 toast.success(res.data.message);
+            }else{
+                toast.error(res.data.message);
             }
         } catch (e) {
-            console.log(e)
+            console.log(e);
+            toast.error(res.data.message);
         }
     }
 

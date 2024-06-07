@@ -19,7 +19,7 @@ const AddAdminComp = () => {
     const token = Cookies.get('token');
     const onAddAdmin = async (data) => {
         try {
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER}/user/makeAdmin`, data, {
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER}/user/makeAdmin/${data.email}`, {
                 headers: {
                     authorization: `${token}`,
                 },
@@ -28,9 +28,12 @@ const AddAdminComp = () => {
             if (res.status === 200) {
                 console.log(res.data.data);
                 toast.success(res.data.message);
+            }else{
+                 toast.error(res.data.message);
             }
         } catch (e) {
-            console.log(e)
+            console.log(e);
+             toast.error(res.data.message);
         }
     }
 

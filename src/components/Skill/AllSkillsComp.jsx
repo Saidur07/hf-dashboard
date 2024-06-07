@@ -10,6 +10,7 @@ import Link from "next/link";
 
 const AllSkillComp = () => {
     const [skills, setSkills] = useState([]);
+     const [currentPage, setCurrentPage] = useState(1);
     useEffect(() => {
         const getSkills = async () => {
             try {
@@ -28,6 +29,21 @@ const AllSkillComp = () => {
 
     console.log(skills);
 
+    const itemsPerPage = 20;
+    const totalPages = Math.ceil(skills.length / itemsPerPage);
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const currentSkills = skills.slice(startIndex, endIndex);
+
+    const nextPage = () => {
+        setCurrentPage(prev => Math.min(prev + 1, totalPages));
+    }
+
+    const prevPage = () => {
+        setCurrentPage(prev => Math.max(prev - 1, 1));
+    }
+
     return (
         <div>
             <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
@@ -45,7 +61,7 @@ const AllSkillComp = () => {
             </tr>
         </thead>
         <tbody>
-            {skills.map((skill, index) => (
+            {currentSkills.map((skill, index) => (
                 <tr key={skill._id}>
                     <td className="border-b px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
                         <h5 className="font-medium text-black dark:text-white">
@@ -64,6 +80,22 @@ const AllSkillComp = () => {
         </tbody>
     </table>
 </div>
+            </div>
+             <div className="flex gap-x-4 items-center justify-center mt-4">
+                <button
+                    onClick={prevPage}
+                    disabled={currentPage === 1}
+                    className={`px-4 py-2 rounded bg-[#ddd] dark:bg-gray-700 text-[#333] dark:text-gray-300 ${currentPage === 1 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                >
+                    Previous
+                </button>
+                <button
+                    onClick={nextPage}
+                    disabled={currentPage === totalPages}
+                    className={`px-4 py-2 rounded bg-[#ddd] dark:bg-gray-700 text-[#333] dark:text-gray-300 ${currentPage === totalPages ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                >
+                    Next
+                </button>
             </div>
         </div>
     );
