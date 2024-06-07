@@ -15,6 +15,7 @@ const AllJobsComp = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
     const [statusFilter, setStatusFilter] = useState("");
+    const [categoryFilter, setCategoryFilter] = useState("");
 
     useEffect(() => {
         const getJobs = async () => {
@@ -47,10 +48,13 @@ const AllJobsComp = () => {
 
     const filteredJobs = jobs.filter(job => {
         return (
-            (job.title.toLowerCase().includes(searchTerm.toLowerCase()) || searchTerm === "") ||
-            (job.status === statusFilter || statusFilter === "")
+            (job.title.toLowerCase().includes(searchTerm.toLowerCase()) || searchTerm === "") &&
+            (job.status.toLowerCase() === statusFilter.toLowerCase() || statusFilter === "") &&
+            (job.category === categoryFilter || categoryFilter === "")
         );
+
     });
+
     const itemsPerPage = 10;
     const totalPages = Math.ceil(filteredJobs.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -83,6 +87,21 @@ const AllJobsComp = () => {
             console.log(e)
         }
     }
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+        setCurrentPage(1);
+    };
+
+    const handleStatusFilterChange = (e) => {
+        setStatusFilter(e.target.value);
+        setCurrentPage(1);
+    };
+
+    const handleCategoryFilterChange = (e) => {
+        setCategoryFilter(e.target.value);
+        setCurrentPage(1);
+    };
     return (
         <div>
             <h2 className="text-3xl mb-2 text-[#fff]">All Jobs</h2>
@@ -92,13 +111,13 @@ const AllJobsComp = () => {
                         type="text"
                         placeholder="Search by job name"
                         value={searchTerm}
-                        onChange={e => setSearchTerm(e.target.value)}
+                        onChange={handleSearchChange}
                         className="p-2 border rounded-md mr-2 max-w-2xl w-full"
                     />
                     <select
                         value={statusFilter}
-                        onChange={e => setStatusFilter(e.target.value)}
-                        className="p-2 border rounded-md w-lg w-full"
+                        onChange={handleStatusFilterChange}
+                        className="p-2 border rounded-md w-lg w-full placeholder:text-[#333] text-[#333]"
                     >
                         <option value="">All Statuses</option>
                         <option value="Completed">Completed</option>
@@ -106,106 +125,116 @@ const AllJobsComp = () => {
                         <option value="Canceled">Cancelled</option>
                         <option value="Open">Open</option>
                     </select>
+                    <select
+                        value={categoryFilter}
+                        onChange={handleCategoryFilterChange}
+                        className="p-2 border rounded-md w-lg w-full placeholder:text-[#333] text-[#333]"
+                    >
+                        <option value="">All Categories</option>
+                        {categories.map(category => (
+                            <option key={category._id} value={category._id}>{category.name}</option>
+                        ))}
+                    </select>
                 </div>
-             <div className="max-w-full overflow-x-auto">
-    <table className="w-full table-auto">
-        <thead>
-            <tr className="bg-gray-200 text-left dark:bg-meta-4">
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                    #
-                </th>
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                    Title
-                </th>
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                    Category
-                </th>
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                    Budget
-                </th>
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                    No. Of Proposals
-                </th>
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                    Time
-                </th>
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                    Size
-                </th>
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                    Hired
-                </th>
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                    Status
-                </th>
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                    Action
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            {currentJobs.map((job, index) => (
-                <tr key={job._id}>
-                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <h5 className="font-medium text-black dark:text-white">
-                            {(currentPage - 1) * itemsPerPage + index + 1}
-                        </h5>
-                    </td>
-                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                            {job?.title}
-                        </p>
-                    </td>
-                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <p className="text-black dark:text-white capitalize">
-                            {findCategoryNameById(job?.category)}
-                        </p>
-                    </td>
-                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <p className="text-black dark:text-white capitalize">
-                            ${job?.budget}
-                        </p>
-                    </td>
-                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <p className="text-black dark:text-white capitalize">
-                            {job?.proposals.length}
-                        </p>
-                    </td>
-                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <p className="text-black dark:text-white capitalize">
-                            {job?.deadline}
-                        </p>
-                    </td>
-                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <p className="text-black dark:text-white capitalize">
-                            {job?.project_size}
-                        </p>
-                    </td>
-                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <p className="text-black dark:text-white capitalize">
-                            {job?.hired ? 'true' : 'false'}
-                        </p>
-                    </td>
-                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <p className="text-black dark:text-white capitalize">
-                            {job?.status}
-                        </p>
-                    </td>
-                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <div className="flex items-center space-x-3.5">
-                            <Link href={`https://koc-chat.vercel.app/job/${job?._id}`} className="text-black dark:text-white capitalize text-xl">
-                                <FaRegEye />
-                            </Link>
-                            <button onClick={() => deleteJob(job._id)} className="hover:text-danger text-xl">
-                                <MdDelete />
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            ))}
-        </tbody>
-    </table>
-</div>
+                <div className="max-w-full overflow-x-auto">
+                    <table className="w-full table-auto">
+                        <thead>
+                            <tr className="bg-gray-200 text-left dark:bg-meta-4">
+                                <th className="px-4 py-4 font-medium text-black dark:text-white">
+                                    #
+                                </th>
+                                <th className="px-4 py-4 font-medium text-black dark:text-white">
+                                    Title
+                                </th>
+                                <th className="px-4 py-4 font-medium text-black dark:text-white">
+                                    Category
+                                </th>
+                                <th className="px-4 py-4 font-medium text-black dark:text-white">
+                                    Budget
+                                </th>
+                                <th className="px-4 py-4 font-medium text-black dark:text-white">
+                                    No. Of Proposals
+                                </th>
+                                <th className="px-4 py-4 font-medium text-black dark:text-white">
+                                    Time
+                                </th>
+                                <th className="px-4 py-4 font-medium text-black dark:text-white">
+                                    Size
+                                </th>
+                                <th className="px-4 py-4 font-medium text-black dark:text-white">
+                                    Hired
+                                </th>
+                                <th className="px-4 py-4 font-medium text-black dark:text-white">
+                                    Status
+                                </th>
+                                <th className="px-4 py-4 font-medium text-black dark:text-white">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {currentJobs.map((job, index) => (
+                                <tr key={job._id}>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <h5 className="font-medium text-black dark:text-white">
+                                            {(currentPage - 1) * itemsPerPage + index + 1}
+                                        </h5>
+                                    </td>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <p className="text-black dark:text-white">
+                                            {job?.title.length > 30 ? job?.title.slice(0, 30) + '...' : job?.title}
+                                        </p>
+                                    </td>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <p className="text-black dark:text-white capitalize">
+                                            {findCategoryNameById(job?.category)}
+                                        </p>
+                                    </td>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <p className="text-black dark:text-white capitalize">
+                                            ${job?.budget}
+                                        </p>
+                                    </td>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <p className="text-black dark:text-white capitalize">
+                                            {job?.proposals.length}
+                                        </p>
+                                    </td>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <p className="text-black dark:text-white capitalize">
+                                            {job?.deadline}
+                                        </p>
+                                    </td>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <p className="text-black dark:text-white capitalize">
+                                            {job?.project_size}
+                                        </p>
+                                    </td>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <p className="text-black dark:text-white capitalize">
+                                            {job?.hired ? 'true' : 'false'}
+                                        </p>
+                                    </td>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <p className="text-black dark:text-white capitalize">
+                                            {job?.status}
+                                        </p>
+                                    </td>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <div className="flex items-center space-x-3.5">
+                                            <Link href={`https://koc-chat.vercel.app/job/${job?._id}`} className="text-black dark:text-white capitalize text-xl">
+                                                <FaRegEye />
+                                            </Link>
+                                            <button onClick={() => deleteJob(job._id)} className="hover:text-danger text-xl">
+                                                <MdDelete />
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div className="flex gap-x-4 items-center justify-center mt-4">
                 <button
