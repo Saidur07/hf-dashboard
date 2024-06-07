@@ -93,7 +93,7 @@ const AllUsersComp = () => {
                     Overall Rating
                 </th>
                 <th className="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
-                    Hourly Rate
+                   Balance
                 </th>
                 <th className="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
                     Actions
@@ -134,7 +134,7 @@ const AllUsersComp = () => {
                     </td>
                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                         <p className="text-black dark:text-white capitalize">
-                            ₺{user?.profile?.hourly_rate}
+                            ₺{user?.profile?.balance.toFixed(2)}
                         </p>
                     </td>
                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
