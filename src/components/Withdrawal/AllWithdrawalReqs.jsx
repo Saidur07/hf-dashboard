@@ -17,7 +17,9 @@ const AllWithdrawalReqs = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [statusFilter, setStatusFilter] = useState("");
     const [filterDate, setFilterDate] = useState("");
-
+    const [denialReason, setDenialReason] = useState("");
+    const [showDenialModal, setShowDenialModal] = useState(false);
+    const [selectedRequestId, setSelectedRequestId] = useState("");
 
     useEffect(() => {
         const getReqs = async () => {
@@ -36,15 +38,34 @@ const AllWithdrawalReqs = () => {
     }, [])
 
     const updateStatus = async (id, status) => {
+        if (status === 'denied') {
+            setSelectedRequestId(id);
+            setShowDenialModal(true);
+        } else {
+            try {
+                const res = await axios.patch(`${process.env.NEXT_PUBLIC_SERVER}/transaction/${id}`, { status });
+                if (res.status === 200) {
+                    setReqs(reqs.map(req => req._id === id ? { ...req, status } : req));
+                    toast.success('Status updated successfully!');
+                }
+            } catch (e) {
+                console.error(e);
+                toast.error('Failed to update status');
+            }
+        }
+    }
+
+    const handleDenialSubmit = async () => {
         try {
-            const res = await axios.patch(`${process.env.NEXT_PUBLIC_SERVER}/transaction/${id}`, { status });
+            const res = await axios.patch(`${process.env.NEXT_PUBLIC_SERVER}/transaction/${selectedRequestId}`, { status: 'denied', reason: denialReason });
             if (res.status === 200) {
-                setReqs(reqs.map(req => req._id === id ? { ...req, status } : req));
-                toast.success('Status updated successfully!');
+                setReqs(reqs.map(req => req._id === selectedRequestId ? { ...req, status: 'denied' } : req));
+                toast.success('Withdrawal request denied successfully!');
+                setShowDenialModal(false);
             }
         } catch (e) {
             console.error(e);
-            toast.error('Failed to update status');
+            toast.error('Failed to deny withdrawal request');
         }
     }
 
@@ -78,8 +99,8 @@ const AllWithdrawalReqs = () => {
 
 
     return (
-        <div>
-            <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+        <div className="relative min-h-screen">
+            <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 min-h-[80vh]">
                 <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">All Withdrawal Requests</h2>
                 <input
                     type="date"
@@ -97,81 +118,126 @@ const AllWithdrawalReqs = () => {
                     <option value="approved">approved</option>
                     <option value="denied">denied</option>
                 </select>
-               <div className="rounded-lg = shadow-md m-2 lg:m-5 overflow-x-auto">
-    <table className="min-w-full border-collapse text-left text-sm">
-        <thead className="sticky top-0 z-10">
-            <tr className="text-left dark:bg-meta-4 w-full">
-                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Name</th>
-                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Email</th>
-                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Date</th>
-                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">IBAN</th>
-                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Bank</th>
-                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Amount</th>
-                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Status</th>
-            </tr>
-        </thead>
-        <tbody className="divide-y border-t">
-            {currentReqs.map((req, index) => (
-                <tr key={req._id} className="!text-[14px] whitespace-nowrap">
-                    <td className="border-b px-4 py-5 dark:border-strokedark">
-                        <div className="flex gap-x-2">
-                            <h5 className="font-medium text-black dark:text-white">
-                                {(currentPage - 1) * itemsPerPage + index + 1}
-                            </h5>
-                            <p className="text-black dark:text-white">
-                                {req.user?.first_name} {req.user?.lastName}
-                            </p>
+                <div className="rounded-lg shadow-md m-2 lg:m-5 overflow-x-auto">
+                    <table className="min-w-full border-collapse text-left text-sm">
+                        <thead className="sticky top-0 z-10">
+                            <tr className="text-left dark:bg-meta-4 w-full">
+                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Name</th>
+                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Email</th>
+                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Date</th>
+                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">IBAN</th>
+                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Bank</th>
+                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Amount</th>
+                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y border-t">
+                            {currentReqs.map((req, index) => (
+                                <tr key={req._id} className="!text-[14px] whitespace-nowrap">
+                                    <td className="border-b px-4 py-5 dark:border-strokedark">
+                                        <div className="flex gap-x-2">
+                                            <h5 className="font-medium text-black dark:text-white">
+                                                {(currentPage - 1) * itemsPerPage + index + 1}
+                                            </h5>
+                                            <p className="text-black dark:text-white">
+                                                {req.user?.first_name} {req.user?.lastName}
+                                            </p>
+                                        </div>
+                                    </td>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <p className="text-black dark:text-white w-full max-w-[180px] overflow-x-auto">
+                                            <span className="inline-block max-w-[220px]">
+                                                {req.user?.email}
+                                            </span>
+                                        </p>
+                                    </td>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <p className="text-black dark:text-white capitalize">
+                                            {new Date(req.createdAt).toISOString().split('T')[0]}
+                                        </p>
+                                    </td>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <div className="flex items-center gap-x-2">
+                                            <p className="text-black dark:text-white capitalize">
+                                                {req.ibn_number.slice(0, 5)}**
+                                            </p>
+                                            <button onClick={() => copyToClipboard(req.ibn_number)} className="text-black dark:text-white">
+                                                <GoCopy />
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <p className="text-black dark:text-white capitalize">
+                                            {req.bank_name}
+                                        </p>
+                                    </td>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <p className="text-black dark:text-white w-full">
+                                            ₺{req.amount}
+                                        </p>
+                                    </td>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <select
+                                            value={req.status}
+                                            onChange={(e) => updateStatus(req._id, e.target.value)}
+                                            className="px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-primary"
+                                        >
+                                            <option value="pending">pending</option>
+                                            <option value="approved">approved</option>
+                                            <option value="denied">denied</option>
+                                            {/* Add more options as needed */}
+                                        </select>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+
+                {showDenialModal && (
+                    <div className="absolute z-10 inset-0 overflow-y-hidden lg:md:top-0 top-[-25%]">
+                        <div className="flex items-end justify-center min-h-screen  text-center sm:block p-5">
+                            <div className="fixed inset-0 transition-opacity" aria-hidden="true">
+                                <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+                            </div>
+                            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-4 sm:align-middle ">
+                                <div className="dark:bg-[#1A222C] bg-white px-4 py-6 sm:p-6 sm:pb-4">
+                                    <div className="sm:flex sm:items-start">
+                                        <div className="text-center ">
+                                            <h3 className="lg:md:text-lg text-[18px] font-medium dark:text-white text-[#333]">Provide Reason for Denial</h3>
+                                            <div className="mt-4">
+                                                <textarea
+                                                    className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary dark:bg-[#1A222C] bg-white w-full" 
+                                                    rows="4"
+                                                    placeholder="Enter reason for denial"
+                                                    value={denialReason}
+                                                    onChange={(e) => setDenialReason(e.target.value)}
+                                                ></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="px-4 py-3 flex items-center gap-x-2 w-full mt-4 justify-center">
+                                        <button
+                                            onClick={handleDenialSubmit}
+                                            className="lg:md:px-6 px-4 rounded-md py-2 lg:md:text-[16px] text-[14px] bg-primary text-[#fff]"
+                                        >
+                                            Deny
+                                        </button>
+                                        <button
+                                            onClick={() => setShowDenialModal(false)}
+                                            className="lg:md:px-6 px-4 rounded-md py-2 lg:md:text-[16px] text-[14px] text-primary bg-[#fff]"
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                              
+                            </div>
                         </div>
-                    </td>
-                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <p className="text-black dark:text-white w-full max-w-[180px] overflow-x-auto">
-                            <span className="inline-block max-w-[220px]">
-                                {req.user?.email}
-                            </span>
-                        </p>
-                    </td>
-                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <p className="text-black dark:text-white capitalize">
-                            {new Date(req.createdAt).toISOString().split('T')[0]}
-                        </p>
-                    </td>
-                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <div className="flex items-center gap-x-2">
-                            <p className="text-black dark:text-white capitalize">
-                                {req.ibn_number.slice(0, 5)}**
-                            </p>
-                            <button onClick={() => copyToClipboard(req.ibn_number)} className="text-black dark:text-white">
-                                <GoCopy />
-                            </button>
-                        </div>
-                    </td>
-                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <p className="text-black dark:text-white capitalize">
-                            Exim Bank
-                        </p>
-                    </td>
-                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <p className="text-black dark:text-white w-full">
-                            ₺{req.amount}
-                        </p>
-                    </td>
-                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <select
-                            value={req.status}
-                            onChange={(e) => updateStatus(req._id, e.target.value)}
-                            className="px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-primary"
-                        >
-                            <option value="pending">pending</option>
-                            <option value="approved">approved</option>
-                            <option value="denied">denied</option>
-                            {/* Add more options as needed */}
-                        </select>
-                    </td>
-                </tr>
-            ))}
-        </tbody>
-    </table>
-</div>
+                    </div>
+                )}
+
 
             </div>
             <div className="flex gap-x-4 items-center justify-center mt-4">
