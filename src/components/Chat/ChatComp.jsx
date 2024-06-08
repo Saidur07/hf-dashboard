@@ -29,24 +29,24 @@ const ChatComp = () => {
       const minTimestamp = minTime ? new Date(minTime).getTime() / 1000 : undefined;
       const maxTimestamp = maxTime ? new Date(maxTime).getTime() / 1000 : undefined;
 
-      const res = await axios.post(`https://adminapisgp.im.qcloud.com/v4/openim/admin_getroammsg?sdkappid=20008771&identifier=administrator&usersig=eJwtzFsLgkAQBeD-Ms*Rq7GtCb0FmUQFWkn4Is0oQ3lbF4mi-15eHs93DucD0T6cd6TBA2cuYDZkRioNZzxwigWX3BqdmkpPgxYfaV0zgucIIVyl7NHpVbMm8GwpZd*MarjoTdlyoZauO2nL*f-9HlPldxhsskN58ilKrLfY5gE2VSPUMYzxUjwTi3B1ve3Oa-j*AH0mNYU_&random=99999999&contenttype=json`, {
-        Operator_Account: operator,
-        Peer_Account: peer,
-        MaxCnt: 1000,
-        MinTime: minTimestamp,
-        MaxTime: maxTimestamp
-      });
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER}/message/${operator}/${peer}`);
 
-      console.log(res.data)
+      if (response.status === 200) {
+        // Filter messages based on the time period
+        const filteredMessages = response.data.data.filter(msg => {
+          const messageTimestamp = new Date(msg.createdAt).getTime() / 1000;
+          return (!minTimestamp || messageTimestamp >= minTimestamp) &&
+            (!maxTimestamp || messageTimestamp <= maxTimestamp);
+        });
 
-      if (res.status === 200) {
-        setMessages(res.data);
+        setMessages(filteredMessages);
       }
 
-    } catch (e) {
-      console.log(e)
+    } catch (error) {
+      console.log(error);
     }
   };
+
   console.log(messages)
   return (
     <div>
@@ -61,23 +61,23 @@ const ChatComp = () => {
         <div className='grid grid-cols-2 items-center gap-x-4 p-6 w-full'>
           <div className="mb-4.5">
             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-              Person One Email
+              Sender User ID
             </label>
             <input
               type="text"
               onChange={(e) => setOperator(e.target.value)}
-              placeholder="Person One Email"
+              placeholder="Sender User ID"
               className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
           </div>
           <div className="mb-4.5">
             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-              Person Two Email
+              Receiver User ID
             </label>
             <input
               type="text"
               onChange={(e) => setPeer(e.target.value)}
-              placeholder="Person Two Email"
+              placeholder="Receiver User ID"
               className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
           </div>
@@ -110,25 +110,24 @@ const ChatComp = () => {
         </div>
 
         <div className='p-6 mt-4 bg-slate-700'>
-          <h2 className="text-xl font-semibold mb-2">Messages ({messages?.MsgCnt ? `${messages?.MsgCnt}` : '0'} found)</h2>
+          <h2 className="text-xl font-semibold mb-2">Messages ({messages?.length ? `${messages?.length}` : '0'} found)</h2>
 
 
           <div className="chat-container">
             <div className="chat-bubble-container">
-              {messages?.MsgList && messages?.MsgList.map((msg, index) => (
-                <div key={index} className={`chat-bubble ${msg.From_Account === operator ? 'operator' : 'peer'}`}>
-                  <p>{msg.MsgBody[0].MsgType === "TIMTextElem" && msg.MsgBody[0].MsgContent.Text}</p>
-                  {msg.MsgBody[0].MsgType === "TIMFileElem" &&
-                    <div className="">
-                      <Link
-                        href={msg.MsgBody[0].MsgContent.Url}
-                        target="_blank"
-                        className="hover:underline text-blue-500">{msg.MsgBody[0].MsgContent.FileName}</Link>
-                    </div>
+              {messages && messages.map((msg, index) => (
+                <div key={index} className={`chat-bubble ${msg.sender === operator ? 'operator' : 'peer'}`}>
+                  <p>{msg.message}</p>
+                  {msg.image &&
+                    <Image
+                      src={msg.image}
+                      alt="image"
+                      width={100}
+                      height={100}
+                    />
                   }
 
-                  <p className="time">{msg.From_Account}</p>
-                  <p className="time">{new Date(msg.MsgTimeStamp * 1000).toLocaleString()}</p>
+                  <p className="time">{new Date(msg.createdAt * 1000).toLocaleString()}</p>
                 </div>
               ))}
             </div>

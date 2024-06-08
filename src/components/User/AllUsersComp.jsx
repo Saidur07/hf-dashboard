@@ -10,6 +10,7 @@ import Link from "next/link";
 import { FaStar } from "react-icons/fa6";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { GoCopy } from "react-icons/go";
 
 const AllUsersComp = () => {
     const [users, setUsers] = useState([]);
@@ -65,6 +66,12 @@ const AllUsersComp = () => {
             console.log(e)
         }
     }
+
+    const copyToClipboard = (text) => {
+        navigator.clipboard.writeText(text);
+        toast.success('IBAN copied to clipboard!');
+    }
+
     return (
         <div>
             <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
@@ -82,6 +89,9 @@ const AllUsersComp = () => {
             <tr className="bg-gray-200 text-left dark:bg-meta-4">
                 <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
                     Name
+                </th>
+                <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
+                    User Id
                 </th>
                 <th className="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
                     Role
@@ -113,6 +123,14 @@ const AllUsersComp = () => {
                             </Link>
                         </div>
                     </td>
+                    <div className="flex items-center gap-x-2">
+                        <p className="text-black dark:text-white capitalize">
+                            {user._id.slice(0, 5)}**
+                        </p>
+                        <button onClick={() => copyToClipboard(user._id)} className="text-black dark:text-white">
+                            <GoCopy />
+                        </button>
+                    </div>
                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                         <p className="text-black dark:text-white capitalize">
                             {user.role}
