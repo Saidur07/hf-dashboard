@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import IMGBB_KEY from '../../../constant';
 import { IoIosArrowDown } from 'react-icons/io';
 import Link from "next/link"
+import Image from 'next/image';
 
 const ChatComp = () => {
   const {
