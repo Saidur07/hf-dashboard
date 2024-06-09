@@ -121,7 +121,7 @@ const ChatComp = () => {
           <h2 className="text-xl font-semibold mb-2">Messages ({messages?.length ? `${messages?.length}` : '0'} found)</h2>
 
 
-          <div className="chat-container overflow-y-auto overflow-x-hidden h-full">
+          <div className="chat-container overflow-y-auto overflow-x-hidden h-[60vh]">
             <div className="chat-bubble-container">
               {messages && messages.map((msg, index) => (
                 <div key={index} className={`chat-bubble ${msg.sender === operator ? 'operator' : 'peer'}`}>
