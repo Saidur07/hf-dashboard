@@ -16,6 +16,7 @@ const AllWithdrawalReqs = () => {
     const [reqs, setReqs] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [statusFilter, setStatusFilter] = useState("");
+    const [typeFilter, setTypeFilter] = useState("");
     const [filterDate, setFilterDate] = useState("");
     const [denialReason, setDenialReason] = useState("");
     const [showDenialModal, setShowDenialModal] = useState(false);
@@ -72,6 +73,7 @@ const AllWithdrawalReqs = () => {
     const filteredReqs = reqs.filter(req => {
         const reqDate = new Date(req.createdAt).toISOString().split('T')[0]; // Adjust the field name to match your data structure and format the date
         return (statusFilter === "" || req.status === statusFilter) &&
+            (typeFilter === "" || req.type === typeFilter) &&
             (filterDate === "" || reqDate === filterDate);
     });
 
@@ -109,6 +111,15 @@ const AllWithdrawalReqs = () => {
                     className="px-4 py-2 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary lg:md:w-[20%] w-[40%]"
                 />
                 <select
+                    value={typeFilter}
+                    onChange={(e) => setTypeFilter(e.target.value)}
+                    className="ml-2 px-4 py-3 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary lg:md:w-[20%] w-[40%]"
+                >
+                    <option value="">All Types</option>
+                    <option value="pending">withdrawal</option>
+                    <option value="approved">add</option>
+                </select>
+                <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
                     className="ml-2 px-4 py-3 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary lg:md:w-[20%] w-[40%]"
@@ -128,6 +139,7 @@ const AllWithdrawalReqs = () => {
                                 <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">IBAN</th>
                                 <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Bank</th>
                                 <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Amount</th>
+                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Type</th>
                                 <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Status</th>
                             </tr>
                         </thead>
@@ -177,6 +189,11 @@ const AllWithdrawalReqs = () => {
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <p className="text-black dark:text-white w-full">
+                                            {req.type}
+                                        </p>
+                                    </td>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                         <select
                                             value={req.status}
                                             onChange={(e) => updateStatus(req._id, e.target.value)}
@@ -185,7 +202,6 @@ const AllWithdrawalReqs = () => {
                                             <option value="pending">pending</option>
                                             <option value="approved">approved</option>
                                             <option value="denied">denied</option>
-                                            {/* Add more options as needed */}
                                         </select>
                                     </td>
                                 </tr>
