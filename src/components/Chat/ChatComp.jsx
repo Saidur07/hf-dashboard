@@ -9,6 +9,9 @@ import IMGBB_KEY from '../../../constant';
 import { IoIosArrowDown } from 'react-icons/io';
 import Link from "next/link"
 import Image from 'next/image';
+import { MdFileDownload } from "react-icons/md";
+import { format, parseISO } from 'date-fns';
+
 
 const ChatComp = () => {
   const {
@@ -28,7 +31,7 @@ const ChatComp = () => {
   const onSubmit = async () => {
     try {
       const minTimestamp = minTime ? new Date(minTime).getTime() / 1000 : undefined;
-      const maxTimestamp = maxTime ? new Date(maxTime).getTime() / 1000 : undefined;
+      const maxTimestamp = maxTime ? new Date(new Date(maxTime).setDate(new Date(maxTime).getDate() + 1)).getTime() / 1000 : undefined;
 
       const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER}/message/${operator}/${peer}`);
 
@@ -46,6 +49,10 @@ const ChatComp = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const formatDate = (dateString) => {
+    return format(parseISO(dateString), 'Pp');
   };
 
   console.log(messages)
@@ -114,7 +121,7 @@ const ChatComp = () => {
           <h2 className="text-xl font-semibold mb-2">Messages ({messages?.length ? `${messages?.length}` : '0'} found)</h2>
 
 
-          <div className="chat-container">
+          <div className="chat-container overflow-y-auto overflow-x-hidden h-full">
             <div className="chat-bubble-container">
               {messages && messages.map((msg, index) => (
                 <div key={index} className={`chat-bubble ${msg.sender === operator ? 'operator' : 'peer'}`}>
@@ -127,8 +134,18 @@ const ChatComp = () => {
                       height={100}
                     />
                   }
+                  {msg.file &&
+                   <div className="text-xs flex items-center gap-x-2">
+                                              <p>{msg.file.file_name}</p>
+                                              <Link href={`${msg.file.file_url}`}
+                                                    target='_blank'
+                                                    noopener="true"
+                                                    noreferrer="true"
+                                              ><MdFileDownload className="text-xl" /> </Link>
+                                            </div>
+                  }
 
-                  <p className="time">{new Date(msg.createdAt * 1000).toLocaleString()}</p>
+                  <p className="time">{formatDate(msg.createdAt)}</p>
                 </div>
               ))}
             </div>

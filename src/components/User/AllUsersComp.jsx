@@ -69,7 +69,7 @@ const AllUsersComp = () => {
 
     const copyToClipboard = (text) => {
         navigator.clipboard.writeText(text);
-        toast.success('IBAN copied to clipboard!');
+        toast.success('User ID copied to clipboard!');
     }
 
     return (
@@ -123,14 +123,14 @@ const AllUsersComp = () => {
                             </Link>
                         </div>
                     </td>
-                    <div className="flex items-center gap-x-2">
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex items-center gap-x-2">
                         <p className="text-black dark:text-white capitalize">
                             {user._id.slice(0, 5)}**
                         </p>
                         <button onClick={() => copyToClipboard(user._id)} className="text-black dark:text-white">
                             <GoCopy />
                         </button>
-                    </div>
+                    </td>
                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                         <p className="text-black dark:text-white capitalize">
                             {user.role}
