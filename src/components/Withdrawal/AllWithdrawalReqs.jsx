@@ -104,16 +104,17 @@ const AllWithdrawalReqs = () => {
         <div className="relative min-h-screen">
             <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 min-h-[80vh]">
                 <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">All Withdrawal Requests</h2>
+                <div className="w-full grid lg:md:grid-cols-3 grid-cols-2 gap-x-4">
                 <input
                     type="date"
                     value={filterDate}
                     onChange={(e) => setFilterDate(e.target.value)}
-                    className="px-4 py-2 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary lg:md:w-[20%] w-[40%]"
+                    className="px-4 py-2 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary "
                 />
                 <select
                     value={typeFilter}
                     onChange={(e) => setTypeFilter(e.target.value)}
-                    className="ml-2 px-4 py-3 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary lg:md:w-[20%] w-[40%]"
+                    className="px-4 py-3 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary "
                 >
                     <option value="">All Types</option>
                     <option value="pending">withdrawal</option>
@@ -122,17 +123,18 @@ const AllWithdrawalReqs = () => {
                 <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
-                    className="ml-2 px-4 py-3 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary lg:md:w-[20%] w-[40%]"
+                    className="px-4 py-3 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary "
                 >
                     <option value="">All Statuses</option>
                     <option value="pending">pending</option>
                     <option value="approved">approved</option>
                     <option value="denied">denied</option>
                 </select>
-                <div className="rounded-lg shadow-md m-2 lg:m-5 overflow-x-auto">
+                </div>
+                <div className="rounded-lg shadow-md m-2 lg:m-5 overflow-x-auto overflow-y-hidden">
                     <table className="min-w-full border-collapse text-left text-sm">
-                        <thead className="sticky top-0 z-10">
-                            <tr className="text-left dark:bg-meta-4 w-full">
+                        <thead className="sticky top-0 z-10 overflow-x-hidden">
+                            <tr className="text-left dark:bg-meta-4 w-full overflow-x-hidden">
                                 <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Name</th>
                                 <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Email</th>
                                 <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Date</th>

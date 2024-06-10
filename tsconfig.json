@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/Category/AddCategoryComp.jsx", "src/components/Chat/ChatCard.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/Category/AddCategoryComp.jsx", "src/components/Chat/ChatCard.jsx", "src/hoc/withAuth.js"],
   "exclude": ["node_modules"]
 }

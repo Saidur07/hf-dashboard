@@ -8,6 +8,8 @@ import { FaRegPenToSquare } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import Link from "next/link";
 import { FaStar } from "react-icons/fa6";
+import { GoCopy } from "react-icons/go";
+
 
 const AllJobsComp = () => {
     const [jobs, setJobs] = useState([]);
@@ -102,11 +104,16 @@ const AllJobsComp = () => {
         setCategoryFilter(e.target.value);
         setCurrentPage(1);
     };
+
+     const copyToClipboard = (text) => {
+        navigator.clipboard.writeText(text);
+        toast.success('Job ID copied to clipboard!');
+    }
     return (
         <div>
-            <h2 className="text-3xl mb-2 text-[#fff]">All Jobs</h2>
+            <h2 className="text-3xl mb-2 dark:text-[#fff] text-[#333]">All Jobs</h2>
             <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-                <div className="max-w-full overflow-x-auto mb-4 flex gap-x-4">
+                <div className="max-w-full overflow-x-auto mb-4 gap-x-4 grid lg:md:grid-cols-2 grid-cols-1">
                     <input
                         type="text"
                         placeholder="Search by job name"
@@ -114,6 +121,7 @@ const AllJobsComp = () => {
                         onChange={handleSearchChange}
                         className="p-2 border rounded-md mr-2 max-w-2xl w-full"
                     />
+                    <div className="grid grid-cols-2 gap-x-4 lg:md:mt-0 mt-2">
                     <select
                         value={statusFilter}
                         onChange={handleStatusFilterChange}
@@ -135,6 +143,7 @@ const AllJobsComp = () => {
                             <option key={category._id} value={category._id}>{category.name}</option>
                         ))}
                     </select>
+                    </div>
                 </div>
                 <div className="max-w-full overflow-x-auto">
                     <table className="w-full table-auto">
@@ -142,6 +151,9 @@ const AllJobsComp = () => {
                             <tr className="bg-gray-200 text-left dark:bg-meta-4">
                                 <th className="px-4 py-4 font-medium text-black dark:text-white">
                                     #
+                                </th>
+                                <th className="px-4 py-4 font-medium text-black dark:text-white">
+                                   Job Id
                                 </th>
                                 <th className="px-4 py-4 font-medium text-black dark:text-white">
                                     Title
@@ -179,6 +191,14 @@ const AllJobsComp = () => {
                                         <h5 className="font-medium text-black dark:text-white">
                                             {(currentPage - 1) * itemsPerPage + index + 1}
                                         </h5>
+                                    </td>
+                                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex items-center gap-x-2">
+                                            <p className="text-black dark:text-white capitalize">
+                                                {job._id.slice(0, 5)}**
+                                            </p>
+                                            <button onClick={() => copyToClipboard(job._id)} className="text-black dark:text-white">
+                                                <GoCopy />
+                                            </button>
                                     </td>
                                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                         <p className="text-black dark:text-white">

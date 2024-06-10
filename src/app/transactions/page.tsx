@@ -17,3 +17,6 @@ const WithdrawalRequests = () => {
 };
 
 export default WithdrawalRequests;
+
+// tsc
+// git add .

@@ -50,9 +50,9 @@ const SignInComp = () => {
                     <div className="flex flex-wrap items-center w-full">
                         <div className="hidden w-full xl:block xl:w-1/2">
                             <div className="px-26 py-17.5 text-center">
-                                <Link href="/" className="text-5xl font-bold mb-5.5 inline-block">                                    
+                                <div className="text-5xl font-bold mb-5.5 inline-block">                                    
                                     <h2 className="text-[#000]">KOC</h2>
-                                </Link>
+                                </div>
 
                                 <p className="2xl:px-20">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit
