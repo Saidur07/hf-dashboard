@@ -12,7 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GoCopy } from "react-icons/go";
 
-const AllWithdrawalReqs = () => {
+const AllAddBalanceReqs = () => {
     const [reqs, setReqs] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [statusFilter, setStatusFilter] = useState("");
@@ -73,7 +73,7 @@ const AllWithdrawalReqs = () => {
  
     const filteredReqs = reqs.filter(req => {
         const reqDate = new Date(req.createdAt).toISOString().split('T')[0]; // Adjust the field name to match your data structure and format the date
-        return req.type === "withdrawal" &&
+        return req.type === "add" &&
             (statusFilter === "" || req.status === statusFilter) &&
             (filterDate === "" || reqDate === filterDate);
     });
@@ -272,4 +272,4 @@ const AllWithdrawalReqs = () => {
     );
 };
 
-export default AllWithdrawalReqs;
+export default AllAddBalanceReqs;

@@ -16,6 +16,7 @@ const AllUsersComp = () => {
     const [users, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState("");
+    const [userId, setUserId] = useState("");
 
     useEffect(() => {
         const getUsers = async () => {
@@ -33,7 +34,8 @@ const AllUsersComp = () => {
         getUsers()
     }, [])
     const filteredUsers = users.filter(user =>
-        user.email.toLowerCase().includes(search.toLowerCase())
+        user.email.toLowerCase().includes(search.toLowerCase()) &&
+        (user._id.toString() === userId || userId === "")
     );
 
     const itemsPerPage = 20;
@@ -76,13 +78,22 @@ const AllUsersComp = () => {
         <div>
             <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
                 <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">All Users</h2>
+                 <div className="grid grid-cols-2 gap-x-4 lg:md:mt-0 mt-2">
+                <input
+                    type="text"
+                    value={userId}
+                    onChange={(e) => setUserId(e.target.value)}
+                    placeholder="Search by User Id"
+                    className="lg:md:px-4 px-2 lg:md:py-3 py-2 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary"
+                />
                 <input
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Search by email"
-                    className="lg:md:px-4 px-2 lg:md:py-3 py-2 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary w-[60%]"
+                    className="lg:md:px-4 px-2 lg:md:py-3 py-2 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary"
                 />
+                </div>
               <div className="max-w-full overflow-x-auto">
     <table className="w-full table-auto">
         <thead>

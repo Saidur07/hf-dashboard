@@ -16,6 +16,7 @@ const AllJobsComp = () => {
     const [categories, setCategories] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
+    const [jobId, setJobId] = useState("");
     const [statusFilter, setStatusFilter] = useState("");
     const [categoryFilter, setCategoryFilter] = useState("");
 
@@ -51,6 +52,7 @@ const AllJobsComp = () => {
     const filteredJobs = jobs.filter(job => {
         return (
             (job.title.toLowerCase().includes(searchTerm.toLowerCase()) || searchTerm === "") &&
+        (job._id.toString() === jobId || jobId === "") &&
             (job.status.toLowerCase() === statusFilter.toLowerCase() || statusFilter === "") &&
             (job.category === categoryFilter || categoryFilter === "")
         );
@@ -95,6 +97,11 @@ const AllJobsComp = () => {
         setCurrentPage(1);
     };
 
+    const handleJobChange = (e) => {
+        setJobId(e.target.value);
+        setCurrentPage(1);
+    }
+
     const handleStatusFilterChange = (e) => {
         setStatusFilter(e.target.value);
         setCurrentPage(1);
@@ -114,13 +121,22 @@ const AllJobsComp = () => {
             <h2 className="text-3xl mb-2 dark:text-[#fff] text-[#333]">All Jobs</h2>
             <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
                 <div className="max-w-full overflow-x-auto mb-4 gap-x-4 grid lg:md:grid-cols-2 grid-cols-1">
+                 <div className="grid grid-cols-2 gap-x-4 lg:md:mt-0 mt-2">
                     <input
                         type="text"
                         placeholder="Search by job name"
+                        value={jobId}
+                        onChange={handleJobChange}
+                        className="p-2 border rounded-md mr-2 max-w-2xl w-full"
+                    />
+                    <input
+                        type="text"
+                        placeholder="Search by job id"
                         value={searchTerm}
                         onChange={handleSearchChange}
                         className="p-2 border rounded-md mr-2 max-w-2xl w-full"
                     />
+                    </div>
                     <div className="grid grid-cols-2 gap-x-4 lg:md:mt-0 mt-2">
                     <select
                         value={statusFilter}
