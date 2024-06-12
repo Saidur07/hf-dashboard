@@ -105,7 +105,7 @@ const AllAddBalanceReqs = () => {
     return (
         <div className="relative min-h-screen">
             <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 min-h-[80vh]">
-                <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">All Withdrawal Requests</h2>
+                <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">All Add Balance Requests</h2>
                 <div className="w-full grid lg:md:grid-cols-3 grid-cols-2 gap-x-4">
                     <input
                         type="date"
