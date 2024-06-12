@@ -70,7 +70,7 @@ const AllWithdrawalReqs = () => {
         }
     }
 
- 
+
     const filteredReqs = reqs.filter(req => {
         const reqDate = new Date(req.createdAt).toISOString().split('T')[0]; // Adjust the field name to match your data structure and format the date
         return req.type === "withdrawal" &&
@@ -107,22 +107,22 @@ const AllWithdrawalReqs = () => {
             <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 min-h-[80vh]">
                 <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">All Withdrawal Requests</h2>
                 <div className="w-full grid lg:md:grid-cols-3 grid-cols-2 gap-x-4">
-                <input
-                    type="date"
-                    value={filterDate}
-                    onChange={(e) => setFilterDate(e.target.value)}
-                    className="px-4 py-2 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary "
-                />
-                <select
-                    value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value)}
-                    className="px-4 py-3 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary "
-                >
-                    <option value="">All Statuses</option>
-                    <option value="pending">pending</option>
-                    <option value="approved">approved</option>
-                    <option value="denied">denied</option>
-                </select>
+                    <input
+                        type="date"
+                        value={filterDate}
+                        onChange={(e) => setFilterDate(e.target.value)}
+                        className="px-4 py-2 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary "
+                    />
+                    <select
+                        value={statusFilter}
+                        onChange={(e) => setStatusFilter(e.target.value)}
+                        className="px-4 py-3 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary "
+                    >
+                        <option value="">All Statuses</option>
+                        <option value="pending">pending</option>
+                        <option value="approved">approved</option>
+                        <option value="denied">denied</option>
+                    </select>
                 </div>
                 <div className="rounded-lg shadow-md m-2 lg:m-5 overflow-x-auto overflow-y-hidden">
                     <table className="min-w-full border-collapse text-left text-sm">
@@ -166,9 +166,9 @@ const AllWithdrawalReqs = () => {
                                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                         <div className="flex items-center gap-x-2">
                                             <p className="text-black dark:text-white capitalize">
-                                                {req.ibn_number.slice(0, 5)}**
+                                                {req.iban_number.slice(0, 5)}**
                                             </p>
-                                            <button onClick={() => copyToClipboard(req.ibn_number)} className="text-black dark:text-white">
+                                            <button onClick={() => copyToClipboard(req.iban_number)} className="text-black dark:text-white">
                                                 <GoCopy />
                                             </button>
                                         </div>
@@ -219,7 +219,7 @@ const AllWithdrawalReqs = () => {
                                             <h3 className="lg:md:text-lg text-[18px] font-medium dark:text-white text-[#333]">Provide Reason for Denial</h3>
                                             <div className="mt-4">
                                                 <textarea
-                                                    className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary dark:bg-[#1A222C] bg-white w-full" 
+                                                    className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary dark:bg-[#1A222C] bg-white w-full"
                                                     rows="4"
                                                     placeholder="Enter reason for denial"
                                                     value={denialReason}
@@ -243,7 +243,7 @@ const AllWithdrawalReqs = () => {
                                         </button>
                                     </div>
                                 </div>
-                              
+
                             </div>
                         </div>
                     </div>

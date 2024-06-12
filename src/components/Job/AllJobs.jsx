@@ -81,7 +81,7 @@ const AllJobsComp = () => {
 
     const deleteJob = async (id) => {
         try {
-            const res = await axios.delete(`${process.env.NEXT_PUBLIC_SERVER}/offer/${id}`);
+            const res = await axios.delete(`${process.env.NEXT_PUBLIC_SERVER}/offer/delete/${id}`);
             console.log(res)
             if (res.status === 200) {
                 const filteredJobs = jobs.filter((job) => job._id !== id);
