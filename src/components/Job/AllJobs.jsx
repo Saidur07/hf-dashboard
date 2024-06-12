@@ -124,14 +124,14 @@ const AllJobsComp = () => {
                  <div className="grid grid-cols-2 gap-x-4 lg:md:mt-0 mt-2">
                     <input
                         type="text"
-                        placeholder="Search by job name"
+                        placeholder="Search by job id"
                         value={jobId}
                         onChange={handleJobChange}
                         className="p-2 border rounded-md mr-2 max-w-2xl w-full"
                     />
                     <input
                         type="text"
-                        placeholder="Search by job id"
+                        placeholder="Search by job name"
                         value={searchTerm}
                         onChange={handleSearchChange}
                         className="p-2 border rounded-md mr-2 max-w-2xl w-full"
