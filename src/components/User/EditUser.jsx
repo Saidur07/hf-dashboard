@@ -55,6 +55,7 @@ const EditUserComp = () => {
                 {
                     email: data.email ? data.email : user.email,
                     password: data.password ? data.password : user.password,
+                    phone_number: data.phone_number ? data.phone_number : user.phone_number,
                 }, {
                 headers: {
                     authorization: `${token}`,
