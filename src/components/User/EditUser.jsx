@@ -142,6 +142,18 @@ const EditUserComp = () => {
                         </div>
                         <div className="mb-4.5">
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                User Phone Number
+                            </label>
+                            <input
+                                type="text"
+                                placeholder="Enter user number"
+                                defaultValue={user.phone_number}
+                                {...register("phone_number")}
+                                className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                            />
+                        </div>
+                        <div className="mb-4.5">
+                            <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                                 User Password
                             </label>
                             <input

@@ -9,7 +9,8 @@ import { MdDelete } from "react-icons/md";
 import Link from "next/link";
 import { FaStar } from "react-icons/fa6";
 import { GoCopy } from "react-icons/go";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AllJobsComp = () => {
     const [jobs, setJobs] = useState([]);
@@ -288,6 +289,9 @@ const AllJobsComp = () => {
                     Next
                 </button>
             </div>
+
+ <ToastContainer />
+
         </div>
     );
 };
