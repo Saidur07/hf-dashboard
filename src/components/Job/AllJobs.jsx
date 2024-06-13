@@ -146,9 +146,10 @@ const AllJobsComp = () => {
                     >
                         <option value="">All Statuses</option>
                         <option value="Completed">Completed</option>
+                        <option value="Open">Open</option>
                         <option value="In Progress">In Progress</option>
                         <option value="Canceled">Cancelled</option>
-                        <option value="Open">Open</option>
+                        <option value="Invited">Invited</option>
                     </select>
                     <select
                         value={categoryFilter}
