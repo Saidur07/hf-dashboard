@@ -157,7 +157,7 @@ const AllUsersComp = () => {
                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                         <div className="flex items-center gap-x-2">
                             <p className="text-black dark:text-white capitalize flex items-center gap-x-2">
-                                {user?.profile?.overall_rating} <FaStar />
+                                {user?.profile?.overall_rating.toFixed(2)} <FaStar />
                             </p>
                         </div>
                     </td>
