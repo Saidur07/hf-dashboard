@@ -75,7 +75,7 @@ const logout = () => {
           <span className="block text-sm font-medium text-black dark:text-white">
            {user.first_name} {user.lastName}
           </span>
-          <span className="block text-xs uppercase">{user.role}</span>
+          <span className="block text-xs uppercase">{user.role === 'admin' && 'Yönetici'}</span>
         </span>
         <svg
           className="hidden fill-current sm:block"

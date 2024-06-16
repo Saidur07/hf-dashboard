@@ -40,7 +40,7 @@ const ECommerce: React.FC = () => {
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardDataStats title="Total Jobs Posted" total={`${jobs.length}`} rate={`${jobs.length}`} levelUp>
+        <CardDataStats title="Toplam İş İlanı" total={`${jobs.length}`} rate={`${jobs.length}`} levelUp>
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -59,7 +59,7 @@ const ECommerce: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Profit" total="₺0k" rate="4.35%" levelUp>
+        <CardDataStats title="Toplam Ciro" total="₺0k" rate="4.35%" levelUp>
           <svg
             className="fill-primary dark:fill-white"
             width="20"
@@ -82,7 +82,7 @@ const ECommerce: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Users" total={`${users.length}`} rate={`${users.length}`} levelUp>
+        <CardDataStats title="Toplam Kullanıcı" total={`${users.length}`} rate={`${users.length}`} levelUp>
           <svg
             className="fill-primary dark:fill-white"
             width="22"
