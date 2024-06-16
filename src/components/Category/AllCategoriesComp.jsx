@@ -83,12 +83,12 @@ const AllCategoriesComp = () => {
     return (
         <div>
             <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-                <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">All Categories</h2>
+                <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Tüm Kategoriler</h2>
                 <input
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Search by category name"
+                    placeholder="Kategori adı ile ara"
                     className="lg:md:px-4 px-2 lg:md:py-3 py-2 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary w-[60%]"
                 />
                 <div className="max-w-full overflow-x-auto">
@@ -99,13 +99,13 @@ const AllCategoriesComp = () => {
                                     #
                                 </th>
                                 <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
-                                    Category Name
+                                    Kategori Adı
                                 </th>
                                 <th className="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">
-                                    Created At
+                                    Oluşturulma Tarihi 
                                 </th>
                                 <th className="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
-                                    Actions
+                                    Aksiyon
                                 </th>
                             </tr>
                         </thead>
@@ -151,14 +151,14 @@ const AllCategoriesComp = () => {
                     disabled={currentPage === 1}
                     className={`px-4 py-2 rounded bg-[#ddd] dark:bg-gray-700 text-[#333] dark:text-gray-300 ${currentPage === 1 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                 >
-                    Previous
+                    Geri
                 </button>
                 <button
                     onClick={nextPage}
                     disabled={currentPage === totalPages}
                     className={`px-4 py-2 rounded bg-[#ddd] dark:bg-gray-700 text-[#333] dark:text-gray-300 ${currentPage === totalPages ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                 >
-                    Next
+                    İleri
                 </button>
             </div>
             <ToastContainer />

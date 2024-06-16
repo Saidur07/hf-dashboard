@@ -145,11 +145,11 @@ const AllJobsComp = () => {
                             className="p-2 border rounded-md w-lg w-full placeholder:text-[#333] text-[#333]"
                         >
                             <option value="">Tüm Durumlar</option>
-                            <option value="Completed">Completed</option>
-                            <option value="Open">Open</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Canceled">Cancelled</option>
-                            <option value="Invited">Invited</option>
+                            <option value="Completed">Tamamlanmış</option>
+                            <option value="Open">Açık</option>
+                            <option value="In Progress">Devam Etmekte</option>
+                            <option value="Canceled">İptal Edildi</option>
+                            <option value="Invited">Davetler</option>
                         </select>
                         <select
                             value={categoryFilter}
@@ -230,7 +230,7 @@ const AllJobsComp = () => {
                                     </td>
                                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                         <p className="text-black dark:text-white capitalize">
-                                            ${job?.budget}
+                                            ₺{job?.budget}
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
@@ -250,7 +250,7 @@ const AllJobsComp = () => {
                                     </td>
                                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                         <p className="text-black dark:text-white capitalize">
-                                            {job?.hired ? 'true' : 'false'}
+                                            {job?.hired ? 'Doğru' : 'Yanlış'}
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
