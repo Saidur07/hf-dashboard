@@ -92,18 +92,18 @@ const EditUserComp = () => {
     }
     return (
         <div>
-            <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Edit User</h2>
+            <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Düzenle</h2>
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
                     <h3 className="font-medium text-black dark:text-white lg:md:text-2xl text-lg">
-                        Edit Balance
+                        Kullanıcı Düzenle
                     </h3>
                 </div>
                 <form action="#" onSubmit={handleSubmit(onEditProfile)}>
                     <div className="p-6.5">
                         <div className="mb-4.5">
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                Current Balance
+                                Mevcut Bakiye
                             </label>
                             <input
                                 type="number"
@@ -116,7 +116,7 @@ const EditUserComp = () => {
 
 
                         <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
-                            Edit Balance
+                            Bakiyeyi Düzenle
                         </button>
                     </div>
                 </form>
@@ -124,18 +124,18 @@ const EditUserComp = () => {
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark mt-6">
                 <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark  ">
                     <h3 className="font-medium text-black dark:text-white lg:md:text-2xl text-lg">
-                        Edit User Credentials
+                        Kimlik Bilgileri Düzenle
                     </h3>
                 </div>
                 <form action="#" onSubmit={handleSubmit(onEditUser)}>
                     <div className="p-6.5">
                         <div className="mb-4.5">
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                User Email
+                                Kullanıcı e-mail
                             </label>
                             <input
                                 type="text"
-                                placeholder="Enter user email"
+                                placeholder="e-mail adresi giriniz..."
                                 defaultValue={user.email}
                                 {...register("email")}
                                 className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -143,11 +143,11 @@ const EditUserComp = () => {
                         </div>
                         <div className="mb-4.5">
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                User Phone Number
+                                Kullanıcı Telefon Numarası
                             </label>
                             <input
                                 type="text"
-                                placeholder="Enter user number"
+                                placeholder="Kullanıcı telefon numarasını giriniz..."
                                 defaultValue={user.phone_number}
                                 {...register("phone_number")}
                                 className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -155,11 +155,11 @@ const EditUserComp = () => {
                         </div>
                         <div className="mb-4.5">
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                User Password
+                                Kullanıcı Şifresi
                             </label>
                             <input
                                 type="text"
-                                placeholder="Enter user password"
+                                placeholder="Kullanıcı şifresini giriniz... "
                                 {...register("password")}
                                 className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             />
@@ -167,7 +167,7 @@ const EditUserComp = () => {
 
 
                         <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
-                            Edit user
+                            Düzenle
                         </button>
                     </div>
                 </form>
