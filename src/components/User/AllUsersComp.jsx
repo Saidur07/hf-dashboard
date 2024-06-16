@@ -60,7 +60,7 @@ const AllUsersComp = () => {
             const res = await axios.delete(`${process.env.NEXT_PUBLIC_SERVER}/user/${id}`);
             console.log(res)
             if (res.status === 200) {
-                toast.success("User deleted")
+                toast.success("Kullanıcı silindi")
                 const filteredUsers = users.filter((user) => user._id !== id);
                 setUsers(filteredUsers);
             }
@@ -71,7 +71,7 @@ const AllUsersComp = () => {
 
     const copyToClipboard = (text) => {
         navigator.clipboard.writeText(text);
-        toast.success('User ID copied to clipboard!');
+        toast.success('Kullanıcı kimliği panoya kopyalandı!');
     }
 
     return (

@@ -115,7 +115,7 @@ const AllJobsComp = () => {
 
     const copyToClipboard = (text) => {
         navigator.clipboard.writeText(text);
-        toast.success('Job ID copied to clipboard!');
+        toast.success('İş kimliği panoya kopyalandı!');
     }
     return (
         <div>

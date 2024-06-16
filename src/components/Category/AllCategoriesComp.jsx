@@ -72,7 +72,7 @@ const AllCategoriesComp = () => {
             const res = await axios.delete(`${process.env.NEXT_PUBLIC_SERVER}/category/${id}`);
             console.log(res)
             if (res.status === 200) {
-                toast.success("Category deleted")
+                toast.success("Kategori silindi")
                 const filteredCategories = categories.filter((category) => category._id !== id);
                 setCategories(filteredCategories);
             }

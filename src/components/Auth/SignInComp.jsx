@@ -34,12 +34,12 @@ const SignInComp = () => {
                 Cookies.set("role", res.data.data.role);
                 window.location.href = "/";
             }else{
-                toast.error("Couldn't login. try again")
+                toast.error("Giriş yapılamadı. tekrar deneyin")
             }
 
         } catch (e) {
             console.log(e)
-            toast.error("Couldn't login. try again")
+            toast.error("Giriş yapılamadı. tekrar deneyin")
         }
     }
 

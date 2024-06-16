@@ -60,7 +60,7 @@ const UpdateTerms = () => {
             });
 
             if (res.status === 200) {
-                toast.success("Terms of service updated");
+                toast.success("Şartlar güncellendi");
             }
         } catch (e) {
             console.log(e);

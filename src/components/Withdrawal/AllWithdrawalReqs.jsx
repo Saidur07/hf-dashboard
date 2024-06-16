@@ -47,11 +47,11 @@ const AllWithdrawalReqs = () => {
                 const res = await axios.patch(`${process.env.NEXT_PUBLIC_SERVER}/transaction/${id}`, { status });
                 if (res.status === 200) {
                     setReqs(reqs.map(req => req._id === id ? { ...req, status } : req));
-                    toast.success('Status updated successfully!');
+                    toast.success('Durum başarıyla güncellendi!');
                 }
             } catch (e) {
                 console.error(e);
-                toast.error('Failed to update status');
+                toast.error('Durum güncellenemedi');
             }
         }
     }
@@ -61,12 +61,12 @@ const AllWithdrawalReqs = () => {
             const res = await axios.patch(`${process.env.NEXT_PUBLIC_SERVER}/transaction/${selectedRequestId}`, { status: 'denied', reason: denialReason });
             if (res.status === 200) {
                 setReqs(reqs.map(req => req._id === selectedRequestId ? { ...req, status: 'denied' } : req));
-                toast.success('Withdrawal request denied successfully!');
+                toast.success('Para çekme talebi reddedildi');
                 setShowDenialModal(false);
             }
         } catch (e) {
             console.error(e);
-            toast.error('Failed to deny withdrawal request');
+            toast.error('Para çekme isteği reddedilemedi');
         }
     }
 
@@ -97,7 +97,7 @@ const AllWithdrawalReqs = () => {
 
     const copyToClipboard = (text) => {
         navigator.clipboard.writeText(text);
-        toast.success('IBAN copied to clipboard!');
+        toast.success('IBAN panoya kopyalandı!');
     }
 
 
