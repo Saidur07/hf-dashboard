@@ -59,7 +59,7 @@ const AllSkillComp = () => {
     return (
         <div>
             <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-                <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">All Skills</h2>
+                <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Tüm Beceriler</h2>
                 <div className="max-w-full overflow-x-auto">
                     <table className="w-full table-auto">
                         <thead>
@@ -68,10 +68,10 @@ const AllSkillComp = () => {
                                     #
                                 </th>
                                 <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
-                                    Skill Name
+                                    Beceri Adı 
                                 </th>
                                 <th className="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
-                                 Actions
+                                    Aksiyon
                                 </th>
                             </tr>
                         </thead>
@@ -107,14 +107,14 @@ const AllSkillComp = () => {
                     disabled={currentPage === 1}
                     className={`px-4 py-2 rounded bg-[#ddd] dark:bg-gray-700 text-[#333] dark:text-gray-300 ${currentPage === 1 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                 >
-                    Previous
+                    Geri
                 </button>
                 <button
                     onClick={nextPage}
                     disabled={currentPage === totalPages}
                     className={`px-4 py-2 rounded bg-[#ddd] dark:bg-gray-700 text-[#333] dark:text-gray-300 ${currentPage === totalPages ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                 >
-                    Next
+                    İleri
                 </button>
             </div>
         </div>

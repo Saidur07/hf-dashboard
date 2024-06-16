@@ -84,29 +84,29 @@ const AddSkillComp = () => {
 
     return (
         <div>
-            <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Add Skill</h2>
+            <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Beceri Ekle</h2>
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
                     <h3 className="font-medium text-black dark:text-white lg:md:text-2xl text-lg">
-                        Add Skill
+                        Beceri Ekle
                     </h3>
                 </div>
                 <form action="#" onSubmit={handleSubmit(onAddSkill)}>
                     <div className="p-6.5">
                         <div className="mb-4.5">
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                Skill Name
+                                Beceri Adı
                             </label>
                             <input
                                 type="text"
-                                placeholder="Enter Skill name"
+                                placeholder="Beceri adınız yazınız..."
                                 {...register("name", { required: true })}
                                 className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             />
                         </div>
                         <div className="relative z-20 bg-white dark:bg-form-input  mb-4.5">
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                Category
+                                Kategori
                             </label>
                             <select
                                 value={selectedOption}
@@ -119,7 +119,7 @@ const AddSkillComp = () => {
                                     }`}
                             >
                                 <option value="" disabled className="text-body dark:text-bodydark">
-                                    Select Category
+                                    Kategori seç
                                 </option>
                                 {categories.map((cat) => (
                                     <option key={cat._id} value={cat._id} className="text-body dark:text-bodydark"> {cat.name}</option>
@@ -132,7 +132,7 @@ const AddSkillComp = () => {
                         </div>
                         <div className='mb-4.5'>
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                Skill Image
+                                Beceri Görseli
                             </label>
                             <input
                                 type="file"
@@ -143,18 +143,18 @@ const AddSkillComp = () => {
 
                         <div className="mb-6">
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                Description
+                                Tanım
                             </label>
                             <textarea
                                 rows={6}
-                                placeholder="Description"
+                                placeholder="Beceri tanımını yazınız"
                                 {...register("description", { required: true })}
                                 className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             ></textarea>
                         </div>
 
                         <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
-                            Add Skill
+                            Beceri Ekle
                         </button>
                     </div>
                 </form>
