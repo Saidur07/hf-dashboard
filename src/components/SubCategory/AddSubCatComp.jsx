@@ -84,18 +84,18 @@ const AddSubCategoryComp = () => {
 
     return (
         <div>
-            <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Add Sub Category</h2>
+            <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Alt Kategori Ekle </h2>
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
                     <h3 className="font-medium text-black dark:text-white lg:md:text-2xl text-lg">
-                        Add Sub Category
+                        Alt Kategori Ekle 
                     </h3>
                 </div>
                 <form action="#" onSubmit={handleSubmit(onAddSubCategory)}>
                     <div className="p-6.5">
                         <div className="relative z-20 bg-white dark:bg-form-input  mb-4.5">
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                Category
+                                Kategori
                             </label>
                             <select
                                 value={selectedOption}
@@ -108,7 +108,7 @@ const AddSubCategoryComp = () => {
                                     }`}
                             >
                                 <option value="" disabled className="text-body dark:text-bodydark">
-                                    Select Category
+                                    Kategori seç 
                                 </option>
                                 {categories.map((cat) => (
                                     <option key={cat._id} value={cat._id} className="text-body dark:text-bodydark"> {cat.name}</option>
@@ -121,11 +121,11 @@ const AddSubCategoryComp = () => {
                         </div>
                         <div className="mb-4.5">
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                Sub Category Name
+                                Alt Kategori Adı
                             </label>
                             <input
                                 type="text"
-                                placeholder="Enter category name"
+                                placeholder="Alt kategori adını yazınız..."
                                 {...register("name", { required: true })}
                                 className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             />
@@ -133,7 +133,7 @@ const AddSubCategoryComp = () => {
 
                         <div className='mb-4.5'>
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                Sub  Category Image
+                                Alt Kategori Görseli
                             </label>
                             <input
                                 type="file"
@@ -144,18 +144,18 @@ const AddSubCategoryComp = () => {
 
                         <div className="mb-6">
                             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                Description
+                                Tanım
                             </label>
                             <textarea
                                 rows={6}
-                                placeholder="Description"
+                                placeholder="Kategori tanımını yazınız... "
                                 {...register("description", { required: true })}
                                 className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             ></textarea>
                         </div>
 
                         <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
-                            Add Sub Category
+                            Alt Kategori Ekle 
                         </button>
                     </div>
                 </form>
