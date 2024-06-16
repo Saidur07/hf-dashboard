@@ -11,7 +11,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const AllAdminsComp = () => {
     const [admins, setAdmins] = useState([]);
-    console.log(admins)
     useEffect(() => {
         const getAdmins = async () => {
             try {
@@ -50,13 +49,13 @@ const AllAdminsComp = () => {
         <thead>
             <tr className="bg-gray-200 text-left dark:bg-meta-4">
                 <th className="px-4 py-4 font-medium text-black dark:text-white">
-                    Admin Name
+                                    Yönetici Adı
                 </th>
                 <th className="px-4 py-4 font-medium text-black dark:text-white">
-                    Admin Email
+                                    Yönetici e-mail 
                 </th>
                 <th className="px-4 py-4 font-medium text-black dark:text-white">
-                    Actions
+                                    Aksiyon
                 </th>
             </tr>
         </thead>
