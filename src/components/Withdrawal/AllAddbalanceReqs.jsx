@@ -215,7 +215,7 @@ const AllAddBalanceReqs = () => {
                                 <div className="dark:bg-[#1A222C] bg-white px-4 py-6 sm:p-6 sm:pb-4">
                                     <div className="sm:flex sm:items-start">
                                         <div className="text-center ">
-                                            <h3 className="lg:md:text-lg text-[18px] font-medium dark:text-white text-[#333]">Reddetme Nedenini Belirtin</h3>
+                                            <h3 className="lg:md:text-lg text-[18px] font-medium dark:text-white text-[#333]">Reddetme Nedenini</h3>
                                             <div className="mt-4">
                                                 <textarea
                                                     className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary dark:bg-[#1A222C] bg-white w-full"
@@ -232,13 +232,13 @@ const AllAddBalanceReqs = () => {
                                             onClick={handleDenialSubmit}
                                             className="lg:md:px-6 px-4 rounded-md py-2 lg:md:text-[16px] text-[14px] bg-primary text-[#fff]"
                                         >
-                                            Reddetmek
+                                            Onayla
                                         </button>
                                         <button
                                             onClick={() => setShowDenialModal(false)}
                                             className="lg:md:px-6 px-4 rounded-md py-2 lg:md:text-[16px] text-[14px] text-primary bg-[#fff]"
                                         >
-                                            İptal etmek
+                                            İptal et
                                         </button>
                                     </div>
                                 </div>

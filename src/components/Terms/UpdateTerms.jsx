@@ -79,13 +79,13 @@ const UpdateTerms = () => {
 
     return (
         <div>
-            <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Update Terms and Conditions</h2>
+            <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Şartlar ve Koşulları Güncelle </h2>
 
             {/* Update KVKK Section */}
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
                     <h3 className="font-medium text-black dark:text-white lg:md:text-2xl text-lg">
-                        Update KVKK
+                        KVKK Güncelle
                     </h3>
                 </div>
                 <form action="#" onSubmit={handleSubmit(onUpdateTerms)}>
@@ -100,7 +100,7 @@ const UpdateTerms = () => {
                         </div>
 
                         <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
-                            Update
+                            Güncelle
                         </button>
                     </div>
                 </form>
@@ -110,7 +110,7 @@ const UpdateTerms = () => {
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark mt-4">
                 <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
                     <h3 className="font-medium text-black dark:text-white lg:md:text-2xl text-lg">
-                        Update User Agreement
+                        Kullanıcı Sözleşmesi Güncelle
                     </h3>
                 </div>
                 <form action="#" onSubmit={handleSubmit(onUpdateTerms)}>
@@ -125,7 +125,7 @@ const UpdateTerms = () => {
                         </div>
 
                         <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
-                            Update
+                            Güncelle
                         </button>
                     </div>
                 </form>
