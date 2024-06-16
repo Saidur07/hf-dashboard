@@ -105,7 +105,7 @@ const AllWithdrawalReqs = () => {
     return (
         <div className="relative min-h-screen">
             <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 min-h-[80vh]">
-                <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">All Withdrawal Requests</h2>
+                <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Para Çekme Talepleri</h2>
                 <div className="w-full grid lg:md:grid-cols-3 grid-cols-2 gap-x-4">
                     <input
                         type="date"
@@ -118,24 +118,24 @@ const AllWithdrawalReqs = () => {
                         onChange={(e) => setStatusFilter(e.target.value)}
                         className="px-4 py-3 mb-4 rounded border border-gray-300 focus:outline-none focus:border-primary "
                     >
-                        <option value="">All Statuses</option>
-                        <option value="pending">pending</option>
-                        <option value="approved">approved</option>
-                        <option value="denied">denied</option>
+                        <option value="">Tüm Talepler</option>
+                        <option value="pending">Askıda</option>
+                        <option value="approved">Onaylı</option>
+                        <option value="denied">Reddedildi</option>
                     </select>
                 </div>
                 <div className="rounded-lg shadow-md m-2 lg:m-5 overflow-x-auto overflow-y-hidden">
                     <table className="min-w-full border-collapse text-left text-sm">
                         <thead className="sticky top-0 z-10 overflow-x-hidden">
                             <tr className="text-left dark:bg-meta-4 w-full overflow-x-hidden">
-                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Name</th>
-                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Email</th>
-                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Date</th>
+                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">İsim</th>
+                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">e-mail </th>
+                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Tarih</th>
                                 <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">IBAN</th>
-                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Bank</th>
-                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Amount</th>
-                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Type</th>
-                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Status</th>
+                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Banka</th>
+                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Miktar</th>
+                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">İşlem</th>
+                                <th scope="col" className="px-4 py-4 font-medium text-black dark:text-white">Durum</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y border-t">
@@ -185,7 +185,7 @@ const AllWithdrawalReqs = () => {
                                     </td>
                                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                         <p className="text-black dark:text-white w-full">
-                                            {req.type}
+                                            {req.type === 'withdrawal' && "Para Çekme"}
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
@@ -194,9 +194,9 @@ const AllWithdrawalReqs = () => {
                                             onChange={(e) => updateStatus(req._id, e.target.value)}
                                             className="px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-primary"
                                         >
-                                            <option value="pending">pending</option>
-                                            <option value="approved">approved</option>
-                                            <option value="denied">denied</option>
+                                            <option value="pending">Askıda</option>
+                                            <option value="approved">Onaylı</option>
+                                            <option value="denied">Reddedildi</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -216,12 +216,12 @@ const AllWithdrawalReqs = () => {
                                 <div className="dark:bg-[#1A222C] bg-white px-4 py-6 sm:p-6 sm:pb-4">
                                     <div className="sm:flex sm:items-start">
                                         <div className="text-center ">
-                                            <h3 className="lg:md:text-lg text-[18px] font-medium dark:text-white text-[#333]">Provide Reason for Denial</h3>
+                                            <h3 className="lg:md:text-lg text-[18px] font-medium dark:text-white text-[#333]">Reddetme Nedenini Belirtin</h3>
                                             <div className="mt-4">
                                                 <textarea
                                                     className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary dark:bg-[#1A222C] bg-white w-full"
                                                     rows="4"
-                                                    placeholder="Enter reason for denial"
+                                                    placeholder="Reddetme Nedenini Belirtin"
                                                     value={denialReason}
                                                     onChange={(e) => setDenialReason(e.target.value)}
                                                 ></textarea>
@@ -233,13 +233,13 @@ const AllWithdrawalReqs = () => {
                                             onClick={handleDenialSubmit}
                                             className="lg:md:px-6 px-4 rounded-md py-2 lg:md:text-[16px] text-[14px] bg-primary text-[#fff]"
                                         >
-                                            Deny
+                                            Reddetmek
                                         </button>
                                         <button
                                             onClick={() => setShowDenialModal(false)}
                                             className="lg:md:px-6 px-4 rounded-md py-2 lg:md:text-[16px] text-[14px] text-primary bg-[#fff]"
                                         >
-                                            Cancel
+                                            İptal etmek
                                         </button>
                                     </div>
                                 </div>
@@ -257,14 +257,14 @@ const AllWithdrawalReqs = () => {
                     disabled={currentPage === 1}
                     className={`px-4 py-2 rounded bg-[#ddd] dark:bg-gray-700 text-[#333] dark:text-gray-300 ${currentPage === 1 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                 >
-                    Previous
+                    Geri
                 </button>
                 <button
                     onClick={nextPage}
                     disabled={currentPage === totalPages}
                     className={`px-4 py-2 rounded bg-[#ddd] dark:bg-gray-700 text-[#333] dark:text-gray-300 ${currentPage === totalPages ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                 >
-                    Next
+                    İleri
                 </button>
             </div>
             <ToastContainer />

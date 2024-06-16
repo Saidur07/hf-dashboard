@@ -55,43 +55,42 @@ const ChatComp = () => {
     return format(parseISO(dateString), 'Pp');
   };
 
-  console.log(messages)
   return (
     <div>
-      <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Search Conversation</h2>
+      <h2 className="lg:md:text-3xl text-xl font-semibold mb-2">Konuşma Ara</h2>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
           <h3 className="font-medium text-black dark:text-white lg:md:text-2xl text-lg">
-            Search Conversation
+            Konuşma Ara
           </h3>
         </div>
 
         <div className='grid grid-cols-2 items-center gap-x-4 p-6 w-full'>
           <div className="mb-4.5">
             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-              Sender User ID
+              Gönderen ID
             </label>
             <input
               type="text"
               onChange={(e) => setOperator(e.target.value)}
-              placeholder="Sender User ID"
+              placeholder="Alıcı ID giriniz..."
               className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
           </div>
           <div className="mb-4.5">
             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-              Receiver User ID
+              Alıcı ID
             </label>
             <input
               type="text"
               onChange={(e) => setPeer(e.target.value)}
-              placeholder="Receiver User ID"
+              placeholder="Gönderici ID giriniz..."
               className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
           </div>
           <div className="mb-4.5">
             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-              Min Time
+              Tarihten
             </label>
             <input
               type="date"
@@ -102,7 +101,7 @@ const ChatComp = () => {
           </div>
           <div className="mb-4.5">
             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-              Max Time
+              Tarihe
             </label>
             <input
               type="date"
@@ -114,7 +113,7 @@ const ChatComp = () => {
           <button
             type="submit"
             onClick={onSubmit}
-            className=" flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">Search</button>
+            className=" flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">Ara</button>
         </div>
 
         <div className='p-6 mt-4 bg-slate-700'>
