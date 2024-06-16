@@ -53,7 +53,7 @@ const AllJobsComp = () => {
     const filteredJobs = jobs.filter(job => {
         return (
             (job.title.toLowerCase().includes(searchTerm.toLowerCase()) || searchTerm === "") &&
-        (job._id.toString() === jobId || jobId === "") &&
+            (job._id.toString() === jobId || jobId === "") &&
             (job.status.toLowerCase() === statusFilter.toLowerCase() || statusFilter === "") &&
             (job.category === categoryFilter || categoryFilter === "")
         );
@@ -113,54 +113,54 @@ const AllJobsComp = () => {
         setCurrentPage(1);
     };
 
-     const copyToClipboard = (text) => {
+    const copyToClipboard = (text) => {
         navigator.clipboard.writeText(text);
         toast.success('Job ID copied to clipboard!');
     }
     return (
         <div>
-            <h2 className="text-3xl mb-2 dark:text-[#fff] text-[#333]">All Jobs</h2>
+            <h2 className="text-3xl mb-2 dark:text-[#fff] text-[#333]">Tüm İşler</h2>
             <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
                 <div className="max-w-full overflow-x-auto mb-4 gap-x-4 grid lg:md:grid-cols-2 grid-cols-1">
-                 <div className="grid grid-cols-2 gap-x-4 lg:md:mt-0 mt-2">
-                    <input
-                        type="text"
-                        placeholder="Search by job id"
-                        value={jobId}
-                        onChange={handleJobChange}
-                        className="p-2 border rounded-md mr-2 max-w-2xl w-full"
-                    />
-                    <input
-                        type="text"
-                        placeholder="Search by job name"
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                        className="p-2 border rounded-md mr-2 max-w-2xl w-full"
-                    />
+                    <div className="grid grid-cols-2 gap-x-4 lg:md:mt-0 mt-2">
+                        <input
+                            type="text"
+                            placeholder="ID ile ara"
+                            value={jobId}
+                            onChange={handleJobChange}
+                            className="p-2 border rounded-md mr-2 max-w-2xl w-full"
+                        />
+                        <input
+                            type="text"
+                            placeholder="İş başlığı ile ara"
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                            className="p-2 border rounded-md mr-2 max-w-2xl w-full"
+                        />
                     </div>
                     <div className="grid grid-cols-2 gap-x-4 lg:md:mt-0 mt-2">
-                    <select
-                        value={statusFilter}
-                        onChange={handleStatusFilterChange}
-                        className="p-2 border rounded-md w-lg w-full placeholder:text-[#333] text-[#333]"
-                    >
-                        <option value="">All Statuses</option>
-                        <option value="Completed">Completed</option>
-                        <option value="Open">Open</option>
-                        <option value="In Progress">In Progress</option>
-                        <option value="Canceled">Cancelled</option>
-                        <option value="Invited">Invited</option>
-                    </select>
-                    <select
-                        value={categoryFilter}
-                        onChange={handleCategoryFilterChange}
-                        className="p-2 border rounded-md w-lg w-full placeholder:text-[#333] text-[#333]"
-                    >
-                        <option value="">All Categories</option>
-                        {categories.map(category => (
-                            <option key={category._id} value={category._id}>{category.name}</option>
-                        ))}
-                    </select>
+                        <select
+                            value={statusFilter}
+                            onChange={handleStatusFilterChange}
+                            className="p-2 border rounded-md w-lg w-full placeholder:text-[#333] text-[#333]"
+                        >
+                            <option value="">Tüm Durumlar</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Open">Open</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Canceled">Cancelled</option>
+                            <option value="Invited">Invited</option>
+                        </select>
+                        <select
+                            value={categoryFilter}
+                            onChange={handleCategoryFilterChange}
+                            className="p-2 border rounded-md w-lg w-full placeholder:text-[#333] text-[#333]"
+                        >
+                            <option value="">Tüm Kategoriler</option>
+                            {categories.map(category => (
+                                <option key={category._id} value={category._id}>{category.name}</option>
+                            ))}
+                        </select>
                     </div>
                 </div>
                 <div className="max-w-full overflow-x-auto">
@@ -171,34 +171,34 @@ const AllJobsComp = () => {
                                     #
                                 </th>
                                 <th className="px-4 py-4 font-medium text-black dark:text-white">
-                                   Job Id
+                                    İş ID
                                 </th>
                                 <th className="px-4 py-4 font-medium text-black dark:text-white">
-                                    Title
+                                    Başlık
                                 </th>
                                 <th className="px-4 py-4 font-medium text-black dark:text-white">
-                                    Category
+                                    Kategori
                                 </th>
                                 <th className="px-4 py-4 font-medium text-black dark:text-white">
-                                    Budget
+                                    Bütçe
                                 </th>
                                 <th className="px-4 py-4 font-medium text-black dark:text-white">
-                                    No. Of Proposals
+                                    Teklif Sayısı
                                 </th>
                                 <th className="px-4 py-4 font-medium text-black dark:text-white">
-                                    Time
+                                    Zaman
                                 </th>
                                 <th className="px-4 py-4 font-medium text-black dark:text-white">
-                                    Size
+                                    Boyut
                                 </th>
                                 <th className="px-4 py-4 font-medium text-black dark:text-white">
-                                    Hired
+                                    Anlaşıldı
                                 </th>
                                 <th className="px-4 py-4 font-medium text-black dark:text-white">
-                                    Status
+                                    Durum
                                 </th>
                                 <th className="px-4 py-4 font-medium text-black dark:text-white">
-                                    Action
+                                    Aksiyon
                                 </th>
                             </tr>
                         </thead>
@@ -211,12 +211,12 @@ const AllJobsComp = () => {
                                         </h5>
                                     </td>
                                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark flex items-center gap-x-2">
-                                            <p className="text-black dark:text-white capitalize">
-                                                {job._id.slice(0, 5)}**
-                                            </p>
-                                            <button onClick={() => copyToClipboard(job._id)} className="text-black dark:text-white">
-                                                <GoCopy />
-                                            </button>
+                                        <p className="text-black dark:text-white capitalize">
+                                            {job._id.slice(0, 5)}**
+                                        </p>
+                                        <button onClick={() => copyToClipboard(job._id)} className="text-black dark:text-white">
+                                            <GoCopy />
+                                        </button>
                                     </td>
                                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                         <p className="text-black dark:text-white">
@@ -280,18 +280,18 @@ const AllJobsComp = () => {
                     disabled={currentPage === 1}
                     className={`px-4 py-2 rounded bg-[#ddd] dark:bg-gray-700 text-[#333] dark:text-gray-300 ${currentPage === 1 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                 >
-                    Previous
+                    Geri
                 </button>
                 <button
                     onClick={nextPage}
                     disabled={currentPage === totalPages}
                     className={`px-4 py-2 rounded bg-[#ddd] dark:bg-gray-700 text-[#333] dark:text-gray-300 ${currentPage === totalPages ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                 >
-                    Next
+                    İleri
                 </button>
             </div>
 
- <ToastContainer />
+            <ToastContainer />
 
         </div>
     );
