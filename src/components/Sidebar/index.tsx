@@ -75,7 +75,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
         <Link href="/">
-          <h2 className="text-2xl font-bold text-[#fff]">KOC Freelancing</h2>
+          <h2 className="text-2xl font-bold text-[#fff]">KocFreelancing</h2>
         </Link>
 
         <button
@@ -108,7 +108,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           {/* <!-- Menu Group --> */}
           <div>
             <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
-              MENU
+              Menü
             </h3>
 
             <ul className="mb-6 flex flex-col gap-1.5">
@@ -120,7 +120,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     }`}
                 >
                   <LuLayoutDashboard className="text-2xl" />
-                  Dashboard
+                  Gösterge Paneli
                 </Link>
               </li>
               {/* <!-- Menu Item Dashboard --> */}
@@ -132,7 +132,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     }`}
                 >
                   <PiBagSimpleLight className="text-2xl" />
-                  Jobs
+                  İşler
                 </Link>
               </li>
               {/* <!-- Menu Item Forms --> */}
@@ -158,7 +158,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         }}
                       >
                         <IoOptions className="text-2xl" />
-                        Category
+                        Kategori
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && "rotate-180"
                             }`}
@@ -189,7 +189,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 "text-white"
                                 }`}
                             >
-                              Add Category
+                              Kategori Ekle
                             </Link>
                           </li>
                           <li>
@@ -199,7 +199,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 "text-white"
                                 } `}
                             >
-                              All Categories
+                              Tüm Kategoriler
                             </Link>
                           </li>
                         </ul>
@@ -232,7 +232,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         }}
                       >
                         <IoOptions className="text-2xl" />
-                        Sub Category
+                        Alt Kategori
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && "rotate-180"
                             }`}
@@ -263,7 +263,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 "text-white"
                                 }`}
                             >
-                              Add Sub Category
+                              Alt Kategori Ekle
                             </Link>
                           </li>
                           <li>
@@ -273,7 +273,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 "text-white"
                                 } `}
                             >
-                              All Sub Categories
+                              Tüm Alt Kategoriler
                             </Link>
                           </li>
                         </ul>
@@ -308,7 +308,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         }}
                       >
                         <HiOutlineCircleStack className="text-2xl" />
-                        Skill
+                        Yetenek
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && "rotate-180"
                             }`}
@@ -339,7 +339,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 "text-white"
                                 }`}
                             >
-                              Add Skill
+                              Yetenek Ekle
                             </Link>
                           </li>
                           <li>
@@ -349,7 +349,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 "text-white"
                                 } `}
                             >
-                              All Skills
+                              Tüm Yetenekler
                             </Link>
                           </li>
                         </ul>
@@ -367,7 +367,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     }`}
                 >
                   <BsPeople className="text-2xl" />
-                  Users
+                  Kullanıcılar
                 </Link>
               </li>
               {/* <!-- Menu Item Tables --> */}
@@ -395,7 +395,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         }}
                       >
                         <FaPeopleGroup className="text-2xl" />
-                        Admin
+                        Yönetici
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && "rotate-180"
                             }`}
@@ -426,7 +426,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 "text-white"
                                 }`}
                             >
-                              Add Admin
+                              Yönetici Ekle
                             </Link>
                           </li>
                           <li>
@@ -436,7 +436,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 "text-white"
                                 } `}
                             >
-                              All Admins
+                              Tüm Yöneticiler
                             </Link>
                           </li>
                         </ul>
@@ -455,7 +455,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     }`}
                 >
                   <IoChatbubbleEllipsesOutline className="text-2xl" />
-                  Chat
+                  Mesajlar
                 </Link>
               </li>
               {/* <!-- Menu Item Settings --> */}
@@ -482,7 +482,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         }}
                       >
                          <HiOutlineBanknotes className="text-2xl" />
-                  Transactions
+                        Ödemeler
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && "rotate-180"
                             }`}
@@ -513,7 +513,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 "text-white"
                                 }`}
                             >
-                              Withdrawal Requests
+                              Para Çekme Talepleri
                             </Link>
                           </li>
                           <li>
@@ -523,7 +523,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 "text-white"
                                 } `}
                             >
-Add Balance Requests
+                              Bakiye Ekleme Talepleri
                             </Link>
                           </li>
                         </ul>
@@ -541,7 +541,7 @@ Add Balance Requests
                     }`}
                 >
                   <CiSettings className="text-2xl" />
-                  Settings
+                  Sözleşmeler
                 </Link>
               </li>
               {/* <!-- Menu Item Settings --> */}
