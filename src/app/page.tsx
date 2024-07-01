@@ -1,18 +1,17 @@
-import ECommerce from "@/components/Dashboard/E-commerce";
+import Stats from "@/components/Dashboard/Stats";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title:
-    "KOC Dashboard | KPI",
-  description: "This is Home page for KOC Freelancing",
+  title: "HF Consultancy Dashboard",
+  description: "This is Home page for HF Consultancy Dashboard",
 };
 
 export default function Home() {
   return (
     <>
       <DefaultLayout>
-        <ECommerce />
+        <Stats />
       </DefaultLayout>
     </>
   );

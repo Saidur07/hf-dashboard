@@ -4,31 +4,31 @@ import DropdownUser from "./DropdownUser";
 import Image from "next/image";
 import { CiLogout } from "react-icons/ci";
 import { useState, useEffect } from "react";
-import Cookies from 'js-cookie';
-
+import Cookies from "js-cookie";
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
-
   const logout = () => {
     // Clear all cookies
-    Object.keys(Cookies.get()).forEach(cookie => {
+    Object.keys(Cookies.get()).forEach((cookie) => {
       Cookies.remove(cookie);
     });
     // Redirect to sign-in page
     window.location.href = "/auth/signin";
-  }
- 
+  };
+
   return (
-    <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none items-center">
-      <div className="lg:md:hidden block">
+    <header className="sticky top-0 z-999 flex w-full items-center bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
+      <div className="block lg:md:hidden">
         <Link href="/">
-          <h2 className="text-xl font-bold text-[#fff] ps-4">KocFreelancing</h2>
+          <h2 className="ps-4 text-xl font-bold text-[#fff]">
+            HF Consultancy Dashboard
+          </h2>
         </Link>
       </div>
-      <div className="flex flex-grow items-center justify-end px-2 py-4 lg:md:shadow-2 md:px-6 2xl:px-11">
+      <div className="flex flex-grow items-center justify-end px-2 py-4 md:px-6 lg:md:shadow-2 2xl:px-11">
         <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
           {/* <!-- Hamburger Toggle BTN --> */}
           <button
@@ -74,28 +74,26 @@ const Header = (props: {
           {/* <!-- Hamburger Toggle BTN --> */}
         </div>
 
-
-        <div className="flex items-center gap-3 2xsm:gap-7 justify-end">
-          <ul className="flex items-center gap-2 2xsm:gap-4 justify-end">
+        <div className="flex items-center justify-end gap-3 2xsm:gap-7">
+          <ul className="flex items-center justify-end gap-2 2xsm:gap-4">
             {/* <!-- Dark Mode Toggler --> */}
             <DarkModeSwitcher />
             {/* <!-- Dark Mode Toggler --> */}
-            <div className="lg:md:hidden block">
-            <button
-              onClick={() => logout()}
-              className="flex items-center gap-3.5 px-2 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
-             <CiLogout className="text-3xl"/>
-            </button>
-          </div>
+            <div className="block lg:md:hidden">
+              <button
+                onClick={() => logout()}
+                className="flex items-center gap-3.5 px-2 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+              >
+                <CiLogout className="text-3xl" />
+              </button>
+            </div>
           </ul>
 
-          <div className="lg:md:block hidden">
+          <div className="hidden lg:md:block">
             {/* <!-- User Area --> */}
             <DropdownUser />
             {/* <!-- User Area --> */}
           </div>
-          
-          
         </div>
       </div>
     </header>

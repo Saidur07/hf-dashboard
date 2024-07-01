@@ -21,6 +21,16 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/Category/AddCategoryComp.jsx", "src/components/Chat/ChatCard.jsx", "src/hoc/withAuth.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/components/Category/AddCategoryComp.jsx",
+    "src/components/Chat/ChatCard.jsx",
+    "src/hoc/withAuth.js",
+    "src/components/Register/RegisterStudent.tsx",
+    "src/components/Admin/AddAdmin.jsx"
+  ],
   "exclude": ["node_modules"]
 }
