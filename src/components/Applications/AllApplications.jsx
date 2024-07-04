@@ -167,14 +167,28 @@ const AllApplicationsComp = () => {
                 </option>
               ))}
             </select>
-            <Select
+
+            <select
+              value={intakeFilter}
+              onChange={(e) => setIntakeFilter(e.target.value)}
+              className="w-full rounded-md border p-2 text-[#333] placeholder:text-[#333]"
+            >
+              <option value="">All Intakes</option>
+              {intakes.map((intake) => (
+                <option key={intake.value} value={intake.value}>
+                  {intake.value}
+                </option>
+              ))}
+            </select>
+
+            {/* <Select
               isMulti
               options={intakes}
               value={intakeFilter}
               onChange={setIntakeFilter}
               className="z-50 w-full rounded-md border p-2 text-[#333] placeholder:text-[#333]"
               placeholder="All Intakes"
-            />
+            /> */}
           </div>
           <div className="mt-2 grid grid-cols-2 gap-x-4 lg:md:mt-0">
             <input
