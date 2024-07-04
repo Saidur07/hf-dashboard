@@ -14,24 +14,24 @@ type LayoutProps = {
 export default function RootLayout({ children }: LayoutProps) {
   const [loading, setLoading] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   const token = Cookies.get("token");
-  //   const role = Cookies.get("role");
-  //   const currentPath = window.location.pathname;
-  //   // Check if the current path is not the sign-in path and there's no token
+  useEffect(() => {
+    const token = Cookies.get("token");
+    const role = Cookies.get("role");
+    const currentPath = window.location.pathname;
+    // Check if the current path is not the sign-in path and there's no token
 
-  //   if (currentPath == "/auth/forgot") {
-  //     setTimeout(() => setLoading(false), 1000);
-  //   }
-  //   if (currentPath !== "/auth/signin" && role !== "admin") {
-  //     window.location.href = "/auth/signin";
-  //   }
-  //   if (currentPath !== "/auth/signin" && !token) {
-  //     window.location.href = "/auth/signin"; // Redirect to sign-in page
-  //   } else {
-  //     setTimeout(() => setLoading(false), 1000);
-  //   }
-  // }, []);
+    if (currentPath == "/auth/forgot") {
+      setTimeout(() => setLoading(false), 1000);
+    }
+    if (currentPath !== "/auth/signin" && role !== "admin") {
+      window.location.href = "/auth/signin";
+    }
+    if (currentPath !== "/auth/signin" && !token) {
+      window.location.href = "/auth/signin"; // Redirect to sign-in page
+    } else {
+      setTimeout(() => setLoading(false), 1000);
+    }
+  }, []);
 
   return (
     <html lang="en">

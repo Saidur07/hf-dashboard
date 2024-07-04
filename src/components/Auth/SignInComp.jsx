@@ -234,12 +234,12 @@ const SignInComp = () => {
                       </span>
                     </div>
                   </div>
-                  <Link
+                  {/* <Link
                     href="/auth/forgot"
                     className="mb-6 flex w-full justify-end text-end text-blue-500"
                   >
                     Forgot password?
-                  </Link>
+                  </Link> */}
 
                   <div className="mb-5">
                     <button

@@ -181,7 +181,7 @@ const AllStudentsComp = () => {
                     </td>
                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                       <p className="capitalize text-black dark:text-white">
-                        {item?._id}
+                        {item?.created_by ?? "--"}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">

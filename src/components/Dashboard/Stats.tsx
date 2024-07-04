@@ -4,8 +4,15 @@ import CardDataStats from "../CardDataStats";
 import axios from "axios";
 import Link from "next/link";
 
+type StatsType = {
+  total: number;
+  inprogress: number;
+  success: number;
+  rejected: number;
+};
+
 const Stats: React.FC = () => {
-  const [stats, setStats] = useState([]);
+  const [stats, setStats] = useState<StatsType | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -34,7 +41,11 @@ const Stats: React.FC = () => {
         <div aria-live="assertive" role="alert" className="loader my-10"></div>
       ) : (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-          <CardDataStats title="Total Applications" total={`${stats.total}`}>
+          <CardDataStats
+            rate=""
+            title="Total Applications"
+            total={stats?.total.toString() || "0"}
+          >
             <svg
               className="fill-primary dark:fill-white"
               width="22"
@@ -54,8 +65,9 @@ const Stats: React.FC = () => {
             </svg>
           </CardDataStats>
           <CardDataStats
+            rate=""
             title="Inprogress Applications"
-            total={`${stats.inprogress}`}
+            total={stats?.inprogress.toString() || "0"}
           >
             <svg
               className="fill-primary dark:fill-white"
@@ -76,8 +88,9 @@ const Stats: React.FC = () => {
             </svg>
           </CardDataStats>
           <CardDataStats
+            rate=""
             title="Successful Applications"
-            total={`${stats.success}`}
+            total={stats?.success.toString() || "0"}
           >
             <svg
               className="fill-primary dark:fill-white"
@@ -98,8 +111,9 @@ const Stats: React.FC = () => {
             </svg>
           </CardDataStats>
           <CardDataStats
+            rate=""
             title="Rejected Applications"
-            total={`${stats.rejected}`}
+            total={stats?.rejected.toString() || "0"}
           >
             <svg
               className="fill-primary dark:fill-white"

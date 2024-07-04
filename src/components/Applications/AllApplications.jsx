@@ -12,22 +12,35 @@ import { GoCopy } from "react-icons/go";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { parseISO, format } from "date-fns";
+import Select from "react-select";
 
 const AllApplicationsComp = () => {
   const [applications, setApplications] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState("");
   const [courseFilter, setCourseFilter] = useState("");
-  const [campusFilter, setCampusFilter] = useState("");
   const [universityFilter, setUniversityFilter] = useState("");
-  const [intakeFilter, setIntakeFilter] = useState("");
+  const [intakeFilter, setIntakeFilter] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState("");
 
-  // State to store dropdown options
   const [statuses, setStatuses] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [campuses, setCampuses] = useState([]);
   const [universities, setUniversities] = useState([]);
-  const [intakes, setIntakes] = useState([]);
+  const intakes = [
+    { value: "January", label: "January" },
+    { value: "February", label: "February" },
+    { value: "March", label: "March" },
+    { value: "April", label: "April" },
+    { value: "May", label: "May" },
+    { value: "June", label: "June" },
+    { value: "July", label: "July" },
+    { value: "August", label: "August" },
+    { value: "September", label: "September" },
+    { value: "October", label: "October" },
+    { value: "November", label: "November" },
+    { value: "December", label: "December" },
+  ];
 
   useEffect(() => {
     const getApplications = async () => {
@@ -44,23 +57,17 @@ const AllApplicationsComp = () => {
     };
     getApplications();
 
-    // Fetch options for dropdowns
     const fetchDropdownData = async () => {
       try {
-        const [statusRes, courseRes, campusRes, universityRes, intakeRes] =
-          await Promise.all([
-            axios.get(`${process.env.NEXT_PUBLIC_SERVER}/statuses`),
-            axios.get(`${process.env.NEXT_PUBLIC_SERVER}/courses`),
-            axios.get(`${process.env.NEXT_PUBLIC_SERVER}/campuses`),
-            axios.get(`${process.env.NEXT_PUBLIC_SERVER}/universities`),
-            axios.get(`${process.env.NEXT_PUBLIC_SERVER}/intakes`),
-          ]);
+        const [statusRes, courseRes, universityRes] = await Promise.all([
+          axios.get(`${process.env.NEXT_PUBLIC_SERVER}/statuses`),
+          axios.get(`${process.env.NEXT_PUBLIC_SERVER}/courses`),
+          axios.get(`${process.env.NEXT_PUBLIC_SERVER}/universities`),
+        ]);
 
         setStatuses(statusRes.data);
         setCourses(courseRes.data);
-        setCampuses(campusRes.data);
         setUniversities(universityRes.data);
-        setIntakes(intakeRes.data);
       } catch (e) {
         console.log(e);
       }
@@ -74,9 +81,10 @@ const AllApplicationsComp = () => {
         const params = {
           status: statusFilter,
           course: courseFilter,
-          campus: campusFilter,
           university: universityFilter,
-          intakes: intakeFilter,
+          intakes: intakeFilter.map((i) => i.value).join(","),
+          searchTerm,
+          sortOrder,
         };
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_SERVER}/application/`,
@@ -93,9 +101,10 @@ const AllApplicationsComp = () => {
   }, [
     statusFilter,
     courseFilter,
-    campusFilter,
     universityFilter,
     intakeFilter,
+    searchTerm,
+    sortOrder,
   ]);
 
   const itemsPerPage = 10;
@@ -118,7 +127,7 @@ const AllApplicationsComp = () => {
         All Applications
       </h2>
       <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-        <div className="mb-4 grid max-w-full grid-cols-1 gap-x-4 overflow-x-auto lg:md:grid-cols-2">
+        <div className="mb-4 grid max-w-full grid-cols-1 gap-4 overflow-x-auto lg:md:grid-cols-2">
           <div className="mt-2 grid grid-cols-2 gap-x-4 lg:md:mt-0">
             <select
               value={statusFilter}
@@ -147,18 +156,6 @@ const AllApplicationsComp = () => {
           </div>
           <div className="mt-2 grid grid-cols-2 gap-x-4 lg:md:mt-0">
             <select
-              value={campusFilter}
-              onChange={(e) => setCampusFilter(e.target.value)}
-              className="w-full rounded-md border p-2 text-[#333] placeholder:text-[#333]"
-            >
-              <option value="">All Campuses</option>
-              {campuses.map((campus) => (
-                <option key={campus._id} value={campus._id}>
-                  {campus.name}
-                </option>
-              ))}
-            </select>
-            <select
               value={universityFilter}
               onChange={(e) => setUniversityFilter(e.target.value)}
               className="w-full rounded-md border p-2 text-[#333] placeholder:text-[#333]"
@@ -170,19 +167,31 @@ const AllApplicationsComp = () => {
                 </option>
               ))}
             </select>
+            <Select
+              isMulti
+              options={intakes}
+              value={intakeFilter}
+              onChange={setIntakeFilter}
+              className="z-50 w-full rounded-md border p-2 text-[#333] placeholder:text-[#333]"
+              placeholder="All Intakes"
+            />
           </div>
           <div className="mt-2 grid grid-cols-2 gap-x-4 lg:md:mt-0">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search..."
+              className="w-full rounded-md border p-2 text-[#333] placeholder:text-[#333]"
+            />
             <select
-              value={intakeFilter}
-              onChange={(e) => setIntakeFilter(e.target.value)}
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
               className="w-full rounded-md border p-2 text-[#333] placeholder:text-[#333]"
             >
-              <option value="">All Intakes</option>
-              {intakes.map((intake) => (
-                <option key={intake} value={intake}>
-                  {intake}
-                </option>
-              ))}
+              <option value="">Sort by Date</option>
+              <option value="asc">Oldest to Newest</option>
+              <option value="desc">Newest to Oldest</option>
             </select>
           </div>
         </div>

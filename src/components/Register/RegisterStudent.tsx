@@ -32,7 +32,7 @@ const RegisterStudent = () => {
 
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER}/user/register`,
+        `${process.env.NEXT_PUBLIC_SERVER}/dashboard/createStudent`,
         {
           ...formData,
           role: "student",
