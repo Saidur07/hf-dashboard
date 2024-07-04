@@ -21,7 +21,6 @@ const SignInComp = () => {
   } = useForm();
 
   const onSignIn = async (data) => {
-    console.log("in");
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER}/auth/login`,
