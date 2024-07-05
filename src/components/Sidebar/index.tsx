@@ -10,7 +10,7 @@ import { IoOptions, IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { HiOutlineCircleStack, HiOutlineBanknotes } from "react-icons/hi2";
 import { BsPeople } from "react-icons/bs";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { PiPasswordLight } from "react-icons/pi";
+import { PiPasswordLight, PiPerson } from "react-icons/pi";
 import { CiSettings } from "react-icons/ci";
 import { FaPeopleGroup } from "react-icons/fa6";
 
@@ -147,7 +147,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     "bg-graydark dark:bg-meta-4"
                   }`}
                 >
-                  <PiBagSimpleLight className="text-2xl" />
+                  <PiPerson className="text-2xl" />
                   Manage Students
                 </Link>
               </li>

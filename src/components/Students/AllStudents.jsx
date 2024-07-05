@@ -192,7 +192,7 @@ const AllStudentsComp = () => {
                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                       <div className="flex items-center space-x-3.5">
                         <Link
-                          href={`https://hfconsultancy.net/profile/${item?._id}`}
+                          href={`https://hfconsultancy.net/dashboard/profile/${item?._id}`}
                           className="text-xl capitalize text-black dark:text-white"
                         >
                           <FaRegEye />

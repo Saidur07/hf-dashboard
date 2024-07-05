@@ -51,9 +51,14 @@ const RegisterStudent = () => {
           confirm_password: "",
         });
       }
-    } catch (e) {
-      console.log(e);
-      toast.error("Failed to register student");
+    } catch (error) {
+      console.log(error);
+
+      if (axios.isAxiosError(error) && error.response) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An unexpected error occurred");
+      }
     }
   };
 

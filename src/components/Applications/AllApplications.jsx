@@ -24,9 +24,63 @@ const AllApplicationsComp = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("");
 
-  const [statuses, setStatuses] = useState([]);
   const [courses, setCourses] = useState([]);
   const [universities, setUniversities] = useState([]);
+  const statuses = [
+    "Received Application at KC",
+    "Application in Progress",
+    "Application on Hold - Intake yet to open",
+    "Application on Hold - KC team",
+    "Application on Hold - University",
+    "Pending from Partner",
+    "Pending from Partner - Login Credentials",
+    "Pending from Partner - Academic Documents",
+    "Pending from Partner - Financial Documents",
+    "Pending from Partner - Application Fee Pending",
+    "Pending from KC",
+    "Application submitted to the Institution",
+    "Application Submitted - Consent Form/Student ID Required",
+    "Application Submitted - Under Review",
+    "Rejected by Institution",
+    "Conditional Offer Received",
+    "Un-conditional Offer Received",
+    "Funds - Pending from Partner",
+    "Funds - On hold by the Institution",
+    "Funds - Submitted to the Institution",
+    "Funds - Under Assessment",
+    "Funds - Approved",
+    "Rejected on GTE grounds",
+    "COE Received",
+    "Payment Received",
+    "CAS - Requested",
+    "CAS - Received",
+    "I-20 - Initiated",
+    "I-20 - Received",
+    "AIP Received",
+    "Visa In Process",
+    "Visa Received",
+    "Visa Rejected",
+    "Proposed for Case Closure",
+    "Case Closed",
+    "Case Closed - Fraudulent Documents Found",
+    "Case Closed - On Partner’s Suggestion",
+    "Case Closed - Program Closed",
+    "Case Closed - Student Not Qualified",
+    "Case Closed - Offer Received - Student not interested to pay",
+    "Case Closed - Offer Received - Student Paid Tuition Fees to Other Institution",
+    "Case Closed - Student not tagged under KC",
+    "Case Closed - Student not Enrolled",
+    "Case Closed - Full Commission Received",
+    "Deferral - Initiated",
+    "Deferral - Completed - Refund Request Pending",
+    "Deferral - Completed",
+    "Refund Request Initiated",
+    "Invoicing Due",
+    "Invoice sent to the Institution",
+    "Visa Received - Progressive Student",
+    "Visa Received - Progressive Student - Discontinued Enrolment",
+    "Visa Received - Progressive Student - Tuition Fees Not Paid",
+  ];
   const intakes = [
     { value: "January", label: "January" },
     { value: "February", label: "February" },
@@ -46,7 +100,7 @@ const AllApplicationsComp = () => {
     const getApplications = async () => {
       try {
         const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_SERVER}/application/`,
+          `${process.env.NEXT_PUBLIC_SERVER}/application/?status=${statusFilter}&course=${courseFilter}&searchTerm=${searchTerm}&university=${universityFilter}&intakes=${intakeFilter}`,
         );
         if (res.status === 200) {
           setApplications(res.data.data);
@@ -56,18 +110,24 @@ const AllApplicationsComp = () => {
       }
     };
     getApplications();
-
+  }, [
+    courseFilter,
+    intakeFilter,
+    searchTerm,
+    sortOrder,
+    statusFilter,
+    universityFilter,
+  ]);
+  useEffect(() => {
     const fetchDropdownData = async () => {
       try {
-        const [statusRes, courseRes, universityRes] = await Promise.all([
-          axios.get(`${process.env.NEXT_PUBLIC_SERVER}/statuses`),
-          axios.get(`${process.env.NEXT_PUBLIC_SERVER}/courses`),
-          axios.get(`${process.env.NEXT_PUBLIC_SERVER}/universities`),
+        const [courseRes, universityRes] = await Promise.all([
+          axios.get(`${process.env.NEXT_PUBLIC_SERVER}/course`),
+          axios.get(`${process.env.NEXT_PUBLIC_SERVER}/university`),
         ]);
 
-        setStatuses(statusRes.data);
-        setCourses(courseRes.data);
-        setUniversities(universityRes.data);
+        setCourses(courseRes.data.data);
+        setUniversities(universityRes.data.data);
       } catch (e) {
         console.log(e);
       }
@@ -120,7 +180,7 @@ const AllApplicationsComp = () => {
   const prevPage = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
-
+  console.log(universities, courses);
   return (
     <div>
       <h2 className="mb-2 text-3xl text-[#333] dark:text-[#fff]">
@@ -147,9 +207,9 @@ const AllApplicationsComp = () => {
               className="w-full rounded-md border p-2 text-[#333] placeholder:text-[#333]"
             >
               <option value="">All Courses</option>
-              {courses.map((course) => (
+              {courses?.map((course) => (
                 <option key={course._id} value={course._id}>
-                  {course.name}
+                  {course.course_name}
                 </option>
               ))}
             </select>
@@ -161,7 +221,7 @@ const AllApplicationsComp = () => {
               className="w-full rounded-md border p-2 text-[#333] placeholder:text-[#333]"
             >
               <option value="">All Universities</option>
-              {universities.map((university) => (
+              {universities?.map((university) => (
                 <option key={university._id} value={university._id}>
                   {university.name}
                 </option>
@@ -180,15 +240,6 @@ const AllApplicationsComp = () => {
                 </option>
               ))}
             </select>
-
-            {/* <Select
-              isMulti
-              options={intakes}
-              value={intakeFilter}
-              onChange={setIntakeFilter}
-              className="z-50 w-full rounded-md border p-2 text-[#333] placeholder:text-[#333]"
-              placeholder="All Intakes"
-            /> */}
           </div>
           <div className="mt-2 grid grid-cols-2 gap-x-4 lg:md:mt-0">
             <input
@@ -217,9 +268,6 @@ const AllApplicationsComp = () => {
                   #
                 </th>
                 <th className="px-4 py-4 font-medium text-black dark:text-white">
-                  ACK. No.
-                </th>
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
                   Date Created
                 </th>
                 <th className="px-4 py-4 font-medium text-black dark:text-white">
@@ -234,15 +282,11 @@ const AllApplicationsComp = () => {
                 <th className="px-4 py-4 font-medium text-black dark:text-white">
                   Intake
                 </th>
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                  Created By
-                </th>
+
                 <th className="px-4 py-4 font-medium text-black dark:text-white">
                   Application Status
                 </th>
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                  KC Assignee
-                </th>
+
                 <th className="px-4 py-4 font-medium text-black dark:text-white">
                   Action
                 </th>
@@ -257,9 +301,6 @@ const AllApplicationsComp = () => {
                     </h5>
                   </td>
 
-                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                    <p className="text-black dark:text-white">{item.acks}</p>
-                  </td>
                   <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                     <p className="text-black dark:text-white">
                       {format(parseISO(item.createdAt), "MM/dd/yyyy")}
@@ -285,21 +326,13 @@ const AllApplicationsComp = () => {
                       {item.course.intakes[0] + " " + item.course.intakes[1]}
                     </p>
                   </td>
-                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                    <p className="capitalize text-black dark:text-white">
-                      {item.createdBy}
-                    </p>
-                  </td>
+
                   <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                     <p className="capitalize text-black dark:text-white">
                       {item.status}
                     </p>
                   </td>
-                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                    <p className="capitalize text-black dark:text-white">
-                      {item.kcAssignee}
-                    </p>
-                  </td>
+
                   <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                     <div className="flex items-center space-x-3.5">
                       <Link
