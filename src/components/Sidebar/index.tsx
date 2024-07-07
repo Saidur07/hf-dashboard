@@ -13,6 +13,7 @@ import { LuLayoutDashboard } from "react-icons/lu";
 import { PiPasswordLight, PiPerson } from "react-icons/pi";
 import { CiSettings } from "react-icons/ci";
 import { FaPeopleGroup } from "react-icons/fa6";
+import { FaChalkboardTeacher } from "react-icons/fa";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -149,6 +150,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 >
                   <PiPerson className="text-2xl" />
                   Manage Students
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/courses"
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes("courses") && "bg-graydark dark:bg-meta-4"
+                  }`}
+                >
+                  <FaChalkboardTeacher className="text-2xl" />
+                  Manage Courses
                 </Link>
               </li>
 

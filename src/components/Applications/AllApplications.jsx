@@ -23,6 +23,7 @@ const AllApplicationsComp = () => {
   const [intakeFilter, setIntakeFilter] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const [courses, setCourses] = useState([]);
   const [universities, setUniversities] = useState([]);
@@ -82,22 +83,23 @@ const AllApplicationsComp = () => {
     "Visa Received - Progressive Student - Tuition Fees Not Paid",
   ];
   const intakes = [
-    { value: "January", label: "January" },
-    { value: "February", label: "February" },
-    { value: "March", label: "March" },
-    { value: "April", label: "April" },
-    { value: "May", label: "May" },
-    { value: "June", label: "June" },
-    { value: "July", label: "July" },
-    { value: "August", label: "August" },
-    { value: "September", label: "September" },
-    { value: "October", label: "October" },
-    { value: "November", label: "November" },
-    { value: "December", label: "December" },
+    { value: "january", label: "January" },
+    { value: "february", label: "February" },
+    { value: "march", label: "March" },
+    { value: "april", label: "April" },
+    { value: "may", label: "May" },
+    { value: "june", label: "June" },
+    { value: "july", label: "July" },
+    { value: "august", label: "August" },
+    { value: "september", label: "September" },
+    { value: "october", label: "October" },
+    { value: "november", label: "November" },
+    { value: "december", label: "December" },
   ];
 
   useEffect(() => {
     const getApplications = async () => {
+      setLoading(true);
       try {
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_SERVER}/application/?status=${statusFilter}&course=${courseFilter}&searchTerm=${searchTerm}&university=${universityFilter}&intakes=${intakeFilter}`,
@@ -108,16 +110,11 @@ const AllApplicationsComp = () => {
       } catch (e) {
         console.log(e);
       }
+      setLoading(false);
     };
     getApplications();
-  }, [
-    courseFilter,
-    intakeFilter,
-    searchTerm,
-    sortOrder,
-    statusFilter,
-    universityFilter,
-  ]);
+  }, [courseFilter, intakeFilter, searchTerm, statusFilter, universityFilter]);
+
   useEffect(() => {
     const fetchDropdownData = async () => {
       try {
@@ -137,6 +134,7 @@ const AllApplicationsComp = () => {
 
   useEffect(() => {
     const getFilteredApplications = async () => {
+      setLoading(true);
       try {
         const params = {
           status: statusFilter,
@@ -144,7 +142,6 @@ const AllApplicationsComp = () => {
           university: universityFilter,
           intakes: intakeFilter.map((i) => i.value).join(","),
           searchTerm,
-          sortOrder,
         };
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_SERVER}/application/`,
@@ -156,22 +153,25 @@ const AllApplicationsComp = () => {
       } catch (e) {
         console.log(e);
       }
+      setLoading(false);
     };
     getFilteredApplications();
-  }, [
-    statusFilter,
-    courseFilter,
-    universityFilter,
-    intakeFilter,
-    searchTerm,
-    sortOrder,
-  ]);
+  }, [statusFilter, courseFilter, universityFilter, intakeFilter, searchTerm]);
 
   const itemsPerPage = 10;
   const totalPages = Math.ceil(applications.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const allApplications = applications.slice(startIndex, endIndex);
+
+  const sortedApplications = [...applications].sort((a, b) => {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+    if (sortOrder === "asc") return dateA - dateB;
+    if (sortOrder === "desc") return dateB - dateA;
+    return 0;
+  });
+
+  const allApplications = sortedApplications.slice(startIndex, endIndex);
 
   const nextPage = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
@@ -180,7 +180,7 @@ const AllApplicationsComp = () => {
   const prevPage = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
-  console.log(universities, courses);
+
   return (
     <div>
       <h2 className="mb-2 text-3xl text-[#333] dark:text-[#fff]">
@@ -188,6 +188,24 @@ const AllApplicationsComp = () => {
       </h2>
       <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="mb-4 grid max-w-full grid-cols-1 gap-4 overflow-x-auto lg:md:grid-cols-2">
+          <div className="mt-2 grid grid-cols-2 gap-x-4 lg:md:mt-0">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search..."
+              className="w-full rounded-md border p-2 text-[#333] placeholder:text-[#333]"
+            />
+            <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+              className="w-full rounded-md border p-2 text-[#333] placeholder:text-[#333]"
+            >
+              <option value="">Sort by Date</option>
+              <option value="asc">Oldest to Newest</option>
+              <option value="desc">Newest to Oldest</option>
+            </select>
+          </div>
           <div className="mt-2 grid grid-cols-2 gap-x-4 lg:md:mt-0">
             <select
               value={statusFilter}
@@ -241,126 +259,116 @@ const AllApplicationsComp = () => {
               ))}
             </select>
           </div>
-          <div className="mt-2 grid grid-cols-2 gap-x-4 lg:md:mt-0">
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search..."
-              className="w-full rounded-md border p-2 text-[#333] placeholder:text-[#333]"
-            />
-            <select
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value)}
-              className="w-full rounded-md border p-2 text-[#333] placeholder:text-[#333]"
-            >
-              <option value="">Sort by Date</option>
-              <option value="asc">Oldest to Newest</option>
-              <option value="desc">Newest to Oldest</option>
-            </select>
-          </div>
         </div>
-        <div className="max-w-full overflow-x-auto">
-          <table className="w-full table-auto">
-            <thead>
-              <tr className="bg-gray-200 text-left dark:bg-meta-4">
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                  #
-                </th>
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                  Date Created
-                </th>
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                  Student Name
-                </th>
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                  University Name
-                </th>
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                  Program Name
-                </th>
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                  Intake
-                </th>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div className="max-w-full overflow-x-auto">
+            <table className="w-full table-auto">
+              <thead>
+                <tr className="bg-gray-200 text-left dark:bg-meta-4">
+                  <th className="px-4 py-4 font-medium text-black dark:text-white">
+                    #
+                  </th>
+                  <th className="px-4 py-4 font-medium text-black dark:text-white">
+                    Date Created
+                  </th>
+                  <th className="px-4 py-4 font-medium text-black dark:text-white">
+                    Student Name
+                  </th>
+                  <th className="px-4 py-4 font-medium text-black dark:text-white">
+                    University Name
+                  </th>
+                  <th className="px-4 py-4 font-medium text-black dark:text-white">
+                    Program Name
+                  </th>
+                  <th className="px-4 py-4 font-medium text-black dark:text-white">
+                    Intake
+                  </th>
 
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                  Application Status
-                </th>
+                  <th className="px-4 py-4 font-medium text-black dark:text-white">
+                    Application Status
+                  </th>
 
-                <th className="px-4 py-4 font-medium text-black dark:text-white">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {allApplications.map((item, index) => (
-                <tr key={item._id}>
-                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                    <h5 className="font-medium text-black dark:text-white">
-                      {(currentPage - 1) * itemsPerPage + index + 1}
-                    </h5>
-                  </td>
-
-                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      {format(parseISO(item.createdAt), "MM/dd/yyyy")}
-                    </p>
-                  </td>
-                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                    <p className="capitalize text-black dark:text-white">
-                      {item.user.first_name + " " + item.user.last_name}
-                    </p>
-                  </td>
-                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                    <p className="capitalize text-black dark:text-white">
-                      {item.course.university.name}
-                    </p>
-                  </td>
-                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                    <p className="capitalize text-black dark:text-white">
-                      {item.course.course_name}
-                    </p>
-                  </td>
-                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                    <p className="capitalize text-black dark:text-white">
-                      {item.course.intakes[0] + " " + item.course.intakes[1]}
-                    </p>
-                  </td>
-
-                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                    <p className="capitalize text-black dark:text-white">
-                      {item.status}
-                    </p>
-                  </td>
-
-                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                    <div className="flex items-center space-x-3.5">
-                      <Link
-                        href={`https://hfconsultancy.net/application/${item._id}`}
-                        className="text-xl capitalize text-black dark:text-white"
-                      >
-                        <FaRegEye />
-                      </Link>
-                    </div>
-                  </td>
+                  <th className="px-4 py-4 font-medium text-black dark:text-white">
+                    Action
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {allApplications.map((item, index) => (
+                  <tr key={item._id}>
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <h5 className="font-medium text-black dark:text-white">
+                        {(currentPage - 1) * itemsPerPage + index + 1}
+                      </h5>
+                    </td>
+
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {format(parseISO(item.createdAt), "MM/dd/yyyy")}
+                      </p>
+                    </td>
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <p className="capitalize text-black dark:text-white">
+                        {item.user.first_name + " " + item.user.last_name}
+                      </p>
+                    </td>
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <p className="capitalize text-black dark:text-white">
+                        {item.course.university.name}
+                      </p>
+                    </td>
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <p className="capitalize text-black dark:text-white">
+                        {item.course.course_name}
+                      </p>
+                    </td>
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <p className="capitalize text-black dark:text-white">
+                        {item.course.intakes[0] + " " + item.course.intakes[1]}
+                      </p>
+                    </td>
+
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <p className="capitalize text-black dark:text-white">
+                        {item.status}
+                      </p>
+                    </td>
+
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <div className="flex items-center space-x-3.5">
+                        <Link
+                          href={`https://hfconsultancy.net/application/${item._id}`}
+                          className="text-xl capitalize text-black dark:text-white"
+                        >
+                          <FaRegEye />
+                        </Link>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
       <div className="mt-4 flex items-center justify-center gap-x-4">
         <button
           onClick={prevPage}
           disabled={currentPage === 1}
-          className={`dark:bg-gray-700 dark:text-gray-300 rounded bg-[#ddd] px-4 py-2 text-[#333] ${currentPage === 1 ? "cursor-not-allowed" : "cursor-pointer"}`}
+          className={`dark:bg-gray-700 rounded bg-[#ddd] px-4 py-2 text-[#333] dark:text-gray-300 ${
+            currentPage === 1 ? "cursor-not-allowed" : "cursor-pointer"
+          }`}
         >
           Previous
         </button>
         <button
           onClick={nextPage}
           disabled={currentPage === totalPages}
-          className={`dark:bg-gray-700 dark:text-gray-300 rounded bg-[#ddd] px-4 py-2 text-[#333] ${currentPage === totalPages ? "cursor-not-allowed" : "cursor-pointer"}`}
+          className={`dark:bg-gray-700 rounded bg-[#ddd] px-4 py-2 text-[#333] dark:text-gray-300 ${
+            currentPage === totalPages ? "cursor-not-allowed" : "cursor-pointer"
+          }`}
         >
           Next
         </button>

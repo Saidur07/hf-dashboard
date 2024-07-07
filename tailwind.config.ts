@@ -57,6 +57,12 @@ const config: Config = {
         success: "#219653",
         danger: "#D34053",
         warning: "#FFA70B",
+        "gray-50": "#F9FAFB",
+        "gray-300": "#D1D5DB",
+        "gray-900": "#111827",
+        "blue-500": "#3B82F6",
+        "green-800": "#166534",
+        "black-900": "#000000",
       },
       fontSize: {
         "title-xxl": ["44px", "55px"],
