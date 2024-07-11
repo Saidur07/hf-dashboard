@@ -9,6 +9,8 @@ import { parseISO, format } from "date-fns";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { MultiSelect } from "react-multi-select-component";
+import Cookies from "js-cookie";
+import instance from "@/axios/axios";
 
 const AllCoursesComp = () => {
   const [courses, setCourses] = useState([]);
@@ -18,14 +20,13 @@ const AllCoursesComp = () => {
   const [sortOrder, setSortOrder] = useState("new");
   const [universities, setUniversities] = useState([]);
   const [countries, setCountries] = useState([]);
-  const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
   const [selectedUniversity, setSelectedUniversity] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState(null);
-  const [selectedState, setSelectedState] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
-
   const [selectedIntakes, setSelectedIntakes] = useState([]);
+  const accessToken = Cookies.get("accessToken");
+  const refreshToken = Cookies.get("refreshToken");
 
   const getCourses = async () => {
     setLoading(true);
@@ -62,36 +63,10 @@ const AllCoursesComp = () => {
         `${process.env.NEXT_PUBLIC_SERVER}/misc/countries`,
       );
       if (response.data.success) {
-        setCountries(response.data.data.map((country) => country.name));
+        setCountries(response.data.data.map((country) => country));
       }
     } catch (error) {
       toast.error("Error fetching countries");
-    }
-  };
-
-  const fetchStates = async (country) => {
-    try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_SERVER}/misc/state/${country}`,
-      );
-      if (response.data.success) {
-        setStates(response.data.data.map((state) => state.name));
-      }
-    } catch (error) {
-      toast.error("Error fetching states");
-    }
-  };
-
-  const fetchCities = async (state) => {
-    try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_SERVER}/misc/city/${state}`,
-      );
-      if (response.data.success) {
-        setCities(response.data.data.map((city) => city.name));
-      }
-    } catch (error) {
-      toast.error("Error fetching cities");
     }
   };
 
@@ -152,36 +127,17 @@ const AllCoursesComp = () => {
     backlog: "",
   });
   useEffect(() => {
-    if (selectedCountry && !selectedState && !selectedCity) {
-      // Country selected, but state and city are not selected
-      fetchStates(selectedCountry);
-    } else if (selectedState && !selectedCity) {
-      // State selected, but city is not selected
-      fetchCities(selectedState);
-    } else if (selectedCity && !selectedState && !selectedCountry) {
-      // Only city is selected, remove it and call all
-      setSelectedCity(null);
-      fetchCountries();
-      fetchStates();
-      fetchCities();
-    } else if (selectedState && !selectedCountry) {
-      // Only state is selected, clear it and call all
-      setSelectedState(null);
-      fetchCountries();
-      fetchStates();
-      fetchCities();
-    } else if (selectedState && selectedCity && !selectedCountry) {
-      // Both state and city are selected, call all
-      fetchCountries();
-      fetchStates();
-      fetchCities();
-    } else if (selectedCountry && selectedCity && !selectedState) {
-      // Country and city selected only, clear country and fetch states
-      setSelectedCountry(null);
-      fetchStates();
+    if (selectedCountry) {
+      const country = countries.find((c) => c.name === selectedCountry);
+      if (country) {
+        setCities(country.cities);
+        if (!country.cities.includes(selectedCity)) {
+          setSelectedCity(null);
+        }
+      }
     }
-  }, [selectedCountry, selectedState, selectedCity]);
-
+  }, [selectedCountry, countries, selectedCity]);
+  console.log(isModalOpen, modalMode);
   const openModal = (mode, course) => {
     setModalMode(mode);
     fetchUniversities();
@@ -190,10 +146,8 @@ const AllCoursesComp = () => {
     if (course) {
       setFormData(course);
       setSelectedCountry(course.country);
-      setSelectedState(course.state);
       setSelectedCity(course.city);
       setSelectedUniversity(course.university._id);
-      console.log(course.state, selectedState);
     }
     setIsModalOpen(true);
   };
@@ -220,7 +174,6 @@ const AllCoursesComp = () => {
       backlog: "",
     });
     setSelectedCountry(null);
-    setSelectedState(null);
     setSelectedCity(null);
     setSelectedUniversity(null);
     setSelectedIntakes([]);
@@ -237,31 +190,26 @@ const AllCoursesComp = () => {
     setLoading(true);
     try {
       if (modalMode === "add") {
-        await axios.post(`${process.env.NEXT_PUBLIC_SERVER}/course/create`, {
+        await instance.post(`/course/create`, {
           ...formData,
           country: selectedCountry,
           city: selectedCity,
-          state: selectedState,
           intakes: selectedIntakes.map((intake) => intake.value).join(","),
           university: selectedUniversity,
         });
         toast.success("Course added successfully!");
       } else if (modalMode === "edit") {
-        await axios.patch(
-          `${process.env.NEXT_PUBLIC_SERVER}/course/edit?id=${selectedCourse._id}`,
-          {
-            ...formData,
-            country: selectedCountry,
-            city: selectedCity,
-            state: selectedState,
-            intakes: selectedIntakes.map((intake) => intake.value).join(","),
-            university: selectedUniversity,
-          },
-        );
+        await instance.patch(`/course/edit?id=${selectedCourse._id}`, {
+          ...formData,
+          country: selectedCountry,
+          city: selectedCity,
+          intakes: selectedIntakes.map((intake) => intake.value).join(","),
+          university: selectedUniversity,
+        });
         toast.success("Course updated successfully!");
       }
-      setIsModalOpen(false);
       getCourses();
+      setIsModalOpen(false);
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong!");
@@ -507,18 +455,18 @@ const AllCoursesComp = () => {
                     </label>
                     <MultiSelect
                       options={[
-                        { label: "january", value: "january" },
-                        { label: "february", value: "february" },
-                        { label: "march", value: "march" },
-                        { label: "april", value: "april" },
-                        { label: "may", value: "may" },
-                        { label: "june", value: "june" },
-                        { label: "july", value: "july" },
-                        { label: "august", value: "august" },
-                        { label: "september", value: "september" },
-                        { label: "october", value: "october" },
-                        { label: "november", value: "november" },
-                        { label: "december", value: "december" },
+                        { label: "january", value: "January" },
+                        { label: "february", value: "February" },
+                        { label: "march", value: "March" },
+                        { label: "april", value: "April" },
+                        { label: "may", value: "May" },
+                        { label: "june", value: "June" },
+                        { label: "july", value: "July" },
+                        { label: "august", value: "August" },
+                        { label: "september", value: "September" },
+                        { label: "october", value: "October" },
+                        { label: "november", value: "November" },
+                        { label: "december", value: "December" },
                       ]}
                       value={selectedIntakes}
                       onChange={setSelectedIntakes}
@@ -702,7 +650,7 @@ const AllCoursesComp = () => {
                   </div>
                   <div>
                     <label className="mb-2 block text-sm font-medium text-gray-900">
-                      Duration*
+                      Duration (months)*
                     </label>
                     <input
                       type="text"
@@ -755,63 +703,19 @@ const AllCoursesComp = () => {
                       required
                     >
                       <option value="">Select an option</option>
-                      {countries?.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                    {/* <input
-                      type="text"
-                      name="country"
-                      value={formData.country}
-                      onChange={handleInputChange}
-                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900"
-                      placeholder="Country"
-                      required
-                    /> */}
-                  </div>
-                  <div>
-                    <label className="mb-2 block text-sm font-medium text-gray-900">
-                      State*
-                    </label>
-                    {/* <input
-                      type="text"
-                      name="state"
-                      value={formData.state}
-                      onChange={handleInputChange}
-                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900"
-                      placeholder="State"
-                      required
-                    /> */}
-                    <select
-                      value={selectedState}
-                      onChange={(e) => setSelectedState(e.target.value)}
-                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900"
-                      placeholder="State"
-                      required
-                    >
-                      <option value="">Select an option</option>
-                      {states?.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
+                      {countries.map((country, index) => (
+                        <option key={index} value={country.name}>
+                          {country.name}
                         </option>
                       ))}
                     </select>
                   </div>
+
                   <div>
                     <label className="mb-2 block text-sm font-medium text-gray-900">
                       City*
                     </label>
-                    {/* <input
-                      type="text"
-                      name="city"
-                      value={formData.city}
-                      onChange={handleInputChange}
-                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900"
-                      placeholder="City"
-                      required
-                    /> */}
+
                     <select
                       value={selectedCity}
                       onChange={(e) => setSelectedCity(e.target.value)}
