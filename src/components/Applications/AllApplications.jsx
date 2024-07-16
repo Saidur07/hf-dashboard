@@ -338,12 +338,13 @@ const AllApplicationsComp = () => {
 
                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                       <div className="flex items-center space-x-3.5">
-                        <Link
-                          href={`https://hfconsultancy.net/application/${item._id}`}
+                        <a
+                          href={`https://hfconsultancy.net/dashboard/profile/${item.user._id}/application/`}
+                          target="_blank"
                           className="text-xl capitalize text-black dark:text-white"
                         >
                           <FaRegEye />
-                        </Link>
+                        </a>
                       </div>
                     </td>
                   </tr>

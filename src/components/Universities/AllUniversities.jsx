@@ -488,7 +488,7 @@ const AllUniversitiesComp = () => {
                             accept="image/*"
                             onChange={handleLogoChange}
                             disabled={imageLoading}
-                            className="col-span-full hidden rounded-md border px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                            className="w-[0.00001px] "
                             required
                           />
                         </label>
@@ -556,7 +556,7 @@ const AllUniversitiesComp = () => {
                             accept="image/*"
                             onChange={handleImageChange}
                             disabled={imageLoading}
-                            className="col-span-full hidden rounded-md border px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                            className="w-[0.00001px] "
                             required
                           />
                         </label>
