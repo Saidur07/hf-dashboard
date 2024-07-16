@@ -3,45 +3,52 @@ import Cookies from 'js-cookie';
 
 const instance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_SERVER,
-})
-instance.interceptors.request.use(async (config: any): Promise<any> => {
+});
+
+instance.interceptors.request.use(async (config) => {
     const accessToken = Cookies.get("accessToken");
     if (accessToken) {
         config.headers.Authorization = accessToken;
-    };
-
+    }
     return config;
 },
 (error) => {
     return Promise.reject(error);
 });
-  
+
 instance.interceptors.response.use(
-      (response) => {
+    (response) => {
         return response;
-      },
-      async(error) => {
-            const originalRequest = error;
-    
-            if (error.response && error.response.status === 403 && !originalRequest._retry) {
-                originalRequest._retry = true;
+    },
+    async (error) => {
+        const originalRequest = error.config;
+        originalRequest._retryCount = originalRequest._retryCount || 0;
 
-                try {
-                    const newToken = await refreshToken();
+        if (error.response && error.response.status === 401 && originalRequest._retryCount < 5) {
+            originalRequest._retryCount += 1;
 
-                    originalRequest.headers.Authorization = newToken;
-                    return instance(originalRequest);
-                } catch(err) {
-                    console.log(err);
-                    return err;
+            try {
+                const newToken = await refreshToken();
+                originalRequest.headers.Authorization = newToken;
+                return instance(originalRequest);
+            } catch (err) {
+                console.log(err);
+                if (originalRequest._retryCount >= 5) {
+                    logoutUser();
                 }
-            } 
-            return error;
-      }
-  )
+                return Promise.reject(err);
+            }
+        }
+
+        if (error.response && error.response.status === 403) {
+            logoutUser();
+        }
+
+        return Promise.reject(error);
+    }
+);
 
 async function refreshToken() {
-    
     try {
         const refreshToken = Cookies.get("refreshToken");
         const response = await instance.post("/auth/refreshToken", {}, {
@@ -49,12 +56,20 @@ async function refreshToken() {
                 RefreshToken: refreshToken
             }
         });
-        Cookies.set("accessToken", response.data.data);
+        const newAccessToken = response.data.data;
+        Cookies.set("accessToken", newAccessToken);
 
-        return response.data.data;
-    } catch(error) {
+        return newAccessToken;
+    } catch (error) {
         throw error;
     }
+}
+
+function logoutUser() {
+    Cookies.remove("accessToken");
+    Cookies.remove("refreshToken");
+    // Add any additional logout logic here, such as redirecting to the login page
+    window.location.href = '/auth/signin'; // Example redirect
 }
 
 export default instance;
