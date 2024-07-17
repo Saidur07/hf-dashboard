@@ -2,31 +2,39 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Cookies from "js-cookie";
-import axios from 'axios'
+import axios from "axios";
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
-   const user_id = Cookies.get('user_id')
+  const user_id = Cookies.get("user_id");
+  const token = Cookies.get("refreshToken");
   const [user, setUser] = useState<any>({});
 
-  const getSingleProfile = async() => {
-    try{
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_SERVER}/profile/${user_id}`);
-      if(res.status == 200){
-        console.log(res.data.data)
-        setUser(res.data.data.user)
+  const getSingleProfile = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_SERVER}/profile/me`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        },
+      );
+      if (res.status == 200) {
+        console.log(res.data.data);
+        setUser(res.data.data.user);
       }
-    }catch(e){
-    console.log(e)
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
-getSingleProfile()
-  }, [user_id])
+    getSingleProfile();
+  }, [user_id]);
 
   // close on click outside
   useEffect(() => {
@@ -54,14 +62,14 @@ getSingleProfile()
     return () => document.removeEventListener("keydown", keyHandler);
   });
 
-const logout = () => {
+  const logout = () => {
     // Clear all cookies
-    Object.keys(Cookies.get()).forEach(cookie => {
+    Object.keys(Cookies.get()).forEach((cookie) => {
       Cookies.remove(cookie);
     });
     // Redirect to sign-in page
     window.location.href = "/auth/signin";
-  }
+  };
 
   return (
     <div className="relative">
@@ -73,9 +81,11 @@ const logout = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-           {user.first_name} {user.lastName}
+            {user.first_name} {user.lastName}
           </span>
-          <span className="block text-xs uppercase">{user.role === 'admin' && 'Yönetici'}</span>
+          <span className="block text-xs uppercase">
+            {user.role === "admin" && "Yönetici"}
+          </span>
         </span>
         <svg
           className="hidden fill-current sm:block"
@@ -104,8 +114,9 @@ const logout = () => {
         }`}
       >
         <button
-        onClick={() => logout()}
-         className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+          onClick={() => logout()}
+          className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+        >
           <svg
             className="fill-current"
             width="22"
