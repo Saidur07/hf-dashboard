@@ -10,7 +10,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { MultiSelect } from "react-multi-select-component";
 import Cookies from "js-cookie";
-import instance from "@/axios/axios";
+import axiosInstance from "@/axios/axios";
 
 const AllCoursesComp = () => {
   const [courses, setCourses] = useState([]);
@@ -190,7 +190,7 @@ const AllCoursesComp = () => {
     setLoading(true);
     try {
       if (modalMode === "add") {
-        await instance.post(`/course/create`, {
+        await axiosInstance.post(`/course/create`, {
           ...formData,
           country: selectedCountry,
           city: selectedCity,
@@ -199,7 +199,7 @@ const AllCoursesComp = () => {
         });
         toast.success("Course added successfully!");
       } else if (modalMode === "edit") {
-        await instance.patch(`/course/edit?id=${selectedCourse._id}`, {
+        await axiosInstance.patch(`/course/edit?id=${selectedCourse._id}`, {
           ...formData,
           country: selectedCountry,
           city: selectedCity,
@@ -237,7 +237,9 @@ const AllCoursesComp = () => {
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="mb-2 text-3xl text-[#333]">All Courses</h2>
+        <h2 className="mb-2 text-3xl text-[#333] dark:text-[#fff]">
+          All Courses
+        </h2>
         <button
           onClick={() => openModal("add", null)}
           className="flex justify-center rounded bg-primary px-12 py-4 font-medium text-gray hover:bg-opacity-90"
@@ -245,7 +247,7 @@ const AllCoursesComp = () => {
           Create a new course
         </button>
       </div>
-      <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default sm:px-7.5 xl:pb-1">
+      <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="mb-4 grid max-w-full grid-cols-2 gap-x-4 overflow-x-auto">
           <input
             type="text"
@@ -269,41 +271,41 @@ const AllCoursesComp = () => {
           ) : (
             <table className="w-full table-auto">
               <thead>
-                <tr className="bg-gray-200 text-left">
-                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black">
+                <tr className="bg-gray-200 text-left dark:bg-meta-4">
+                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black dark:text-white">
                     #
                   </th>
-                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black">
+                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black dark:text-white">
                     Date Created
                   </th>
-                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black">
+                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black dark:text-white">
                     Course Name
                   </th>
-                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black">
+                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black dark:text-white">
                     Intakes
                   </th>
-                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black">
+                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black dark:text-white">
                     Campus
                   </th>
-                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black">
+                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black dark:text-white">
                     Application Deadline
                   </th>
-                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black">
+                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black dark:text-white">
                     Application Fee
                   </th>
-                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black">
+                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black dark:text-white">
                     Yearly Tuition Fee
                   </th>
-                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black">
+                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black dark:text-white">
                     IELTS Band
                   </th>
-                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black">
+                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black dark:text-white">
                     Entry Requirements
                   </th>
-                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black">
+                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black dark:text-white">
                     University
                   </th>
-                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black">
+                  <th className="whitespace-nowrap px-4 py-4 font-medium text-black dark:text-white">
                     Action
                   </th>
                 </tr>
@@ -311,56 +313,62 @@ const AllCoursesComp = () => {
               <tbody>
                 {allCourses.map((item, index) => (
                   <tr key={item._id}>
-                    <td className="border-b border-[#eee] px-4 py-5">
-                      <h5 className="font-medium text-black">
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <h5 className="font-medium text-black dark:text-white">
                         {(currentPage - 1) * itemsPerPage + index + 1}
                       </h5>
                     </td>
-                    <td className="border-b border-[#eee] px-4 py-5">
-                      <p className="text-black">
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
                         {format(parseISO(item?.createdAt), "MM/dd/yyyy")}
                       </p>
                     </td>
-                    <td className="border-b border-[#eee] px-4 py-5">
-                      <p className="text-black">{item?.course_name}</p>
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {item?.course_name}
+                      </p>
                     </td>
-                    <td className="border-b border-[#eee] px-4 py-5">
-                      <p className="text-black">{item?.intakes.join(", ")}</p>
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {item?.intakes.join(", ")}
+                      </p>
                     </td>
-                    <td className="border-b border-[#eee] px-4 py-5">
-                      <p className="capitalize text-black">{item?.campus}</p>
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <p className="capitalize text-black dark:text-white">
+                        {item?.campus}
+                      </p>
                     </td>
-                    <td className="border-b border-[#eee] px-4 py-5">
-                      <p className="capitalize text-black">
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <p className="capitalize text-black dark:text-white">
                         {item?.application_deadline}
                       </p>
                     </td>
-                    <td className="border-b border-[#eee] px-4 py-5">
-                      <p className="capitalize text-black">
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <p className="capitalize text-black dark:text-white">
                         {item?.application_fee}
                       </p>
                     </td>
-                    <td className="border-b border-[#eee] px-4 py-5">
-                      <p className="capitalize text-black">
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <p className="capitalize text-black dark:text-white">
                         {item?.yearly_tuition_fee}
                       </p>
                     </td>
-                    <td className="border-b border-[#eee] px-4 py-5">
-                      <p className="capitalize text-black">
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <p className="capitalize text-black dark:text-white">
                         {item?.ielts_no_band_less_than}
                       </p>
                     </td>
-                    <td className="border-b border-[#eee] px-4 py-5">
-                      <p className="capitalize text-black">
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <p className="capitalize text-black dark:text-white">
                         {item?.entry_requirements}
                       </p>
                     </td>
-                    <td className="border-b border-[#eee] px-4 py-5">
-                      <p className="capitalize text-black">
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                      <p className="capitalize text-black dark:text-white">
                         {item?.university.name}
                       </p>
                     </td>
-                    <td className="border-b border-[#eee] px-4 py-5">
+                    <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                       <div className="flex items-center space-x-3.5">
                         <p
                           className="cursor-pointer text-xl capitalize text-green-800"
@@ -387,7 +395,7 @@ const AllCoursesComp = () => {
         <button
           onClick={prevPage}
           disabled={currentPage === 1}
-          className={`rounded bg-[#ddd] px-4 py-2 text-[#333] ${
+          className={`dark:bg-gray-700 rounded bg-[#ddd] px-4 py-2 text-[#333] dark:text-gray-300 ${
             currentPage === 1 ? "cursor-not-allowed" : "cursor-pointer"
           }`}
         >
@@ -396,7 +404,7 @@ const AllCoursesComp = () => {
         <button
           onClick={nextPage}
           disabled={currentPage === totalPages}
-          className={`rounded bg-[#ddd] px-4 py-2 text-[#333] ${
+          className={`dark:bg-gray-700 rounded bg-[#ddd] px-4 py-2 text-[#333] dark:text-gray-300 ${
             currentPage === totalPages ? "cursor-not-allowed" : "cursor-pointer"
           }`}
         >

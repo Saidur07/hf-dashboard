@@ -97,12 +97,12 @@ const AllStudentsComp = () => {
             placeholder="Search students"
             value={searchTerm}
             onChange={handleSearchChange}
-            className="border-gray-300 mb-4 w-full rounded-md border p-2"
+            className="mb-4 w-full rounded-md border border-gray-300 p-2"
           />
           <select
             value={statusFilter}
             onChange={handleStatusFilterChange}
-            className="border-gray-300 mb-4 w-full rounded-md border p-2"
+            className="mb-4 w-full rounded-md border border-gray-300 p-2"
           >
             <option value="">All Statuses</option>
             <option value="verified">Verified</option>
@@ -112,7 +112,7 @@ const AllStudentsComp = () => {
           <select
             value={sortOrder}
             onChange={handleSortChange}
-            className="border-gray-300 mb-4 w-full rounded-md border p-2"
+            className="mb-4 w-full rounded-md border border-gray-300 p-2"
           >
             <option value="new">Newest First</option>
             <option value="old">Oldest First</option>
@@ -170,12 +170,12 @@ const AllStudentsComp = () => {
                       </p>
                     </td>
                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                      <p className="capitalize text-black dark:text-white">
+                      <p className=" text-black dark:text-white">
                         {item?.email}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                      <p className="capitalize text-black dark:text-white">
+                      <p className=" text-black dark:text-white">
                         {item?.phone_number}
                       </p>
                     </td>
@@ -191,12 +191,13 @@ const AllStudentsComp = () => {
                     </td>
                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                       <div className="flex items-center space-x-3.5">
-                        <Link
+                        <a
                           href={`https://hfconsultancy.net/dashboard/profile/${item?._id}`}
                           className="text-xl capitalize text-black dark:text-white"
+                          target="_blank"
                         >
                           <FaRegEye />
-                        </Link>
+                        </a>
                       </div>
                     </td>
                   </tr>
@@ -210,7 +211,7 @@ const AllStudentsComp = () => {
         <button
           onClick={prevPage}
           disabled={currentPage === 1}
-          className={`dark:bg-gray-700 dark:text-gray-300 rounded bg-[#ddd] px-4 py-2 text-[#333] ${
+          className={`dark:bg-gray-700 rounded bg-[#ddd] px-4 py-2 text-[#333] dark:text-gray-300 ${
             currentPage === 1 ? "cursor-not-allowed" : "cursor-pointer"
           }`}
         >
@@ -219,7 +220,7 @@ const AllStudentsComp = () => {
         <button
           onClick={nextPage}
           disabled={currentPage === totalPages}
-          className={`dark:bg-gray-700 dark:text-gray-300 rounded bg-[#ddd] px-4 py-2 text-[#333] ${
+          className={`dark:bg-gray-700 rounded bg-[#ddd] px-4 py-2 text-[#333] dark:text-gray-300 ${
             currentPage === totalPages ? "cursor-not-allowed" : "cursor-pointer"
           }`}
         >

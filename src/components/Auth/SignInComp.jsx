@@ -8,7 +8,7 @@ import { CiLock } from "react-icons/ci";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";
-import instance from "@/axios/axios";
+import axiosInstance from "@/axios/axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

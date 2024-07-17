@@ -339,7 +339,7 @@ const AllApplicationsComp = () => {
                     <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                       <div className="flex items-center space-x-3.5">
                         <a
-                          href={`https://hfconsultancy.net/dashboard/profile/${item.user._id}/application/`}
+                          href={`https://hfconsultancy.net/dashboard/profile/${item.user._id}/applications/`}
                           target="_blank"
                           className="text-xl capitalize text-black dark:text-white"
                         >
