@@ -1,22 +1,25 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import { Metadata } from "next";
+"use client";
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import AllAdminsComp from "./../../../components/Admin/AllAdmins";
+import AllAdminComp from "@/components/Admin/AllAdmins";
 
-export const metadata: Metadata = {
-  title: "All Admins | HF Consultancy Dashboard",
-  description: " All Admin page",
-};
+const AllAdmins: React.FC = () => {
+  const router = useRouter();
 
-const AllAdmin: React.FC = () => {
+  useEffect(() => {
+    const role = Cookies.get("role");
+    if (role !== "superadmin") {
+      router.push("/");
+    }
+  }, [router]);
+
   return (
     <DefaultLayout>
-      <AllAdminsComp />
+      <AllAdminComp />
     </DefaultLayout>
   );
 };
 
-export default AllAdmin;
+export default AllAdmins;

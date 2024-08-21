@@ -1,17 +1,20 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import { Metadata } from "next";
+"use client";
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import AddAdminComp from "./../../../components/Admin/AddAdmin";
-
-export const metadata: Metadata = {
-  title: "Add Admin | HF Consultancy Dashboard",
-  description: " Add Admin page ",
-};
+import AddAdminComp from "@/components/Admin/AddAdmin";
 
 const AddAdmin: React.FC = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    const role = Cookies.get("role");
+    if (role !== "superadmin") {
+      router.push("/");
+    }
+  }, [router]);
+
   return (
     <DefaultLayout>
       <AddAdminComp />

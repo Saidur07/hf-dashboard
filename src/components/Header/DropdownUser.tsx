@@ -84,7 +84,7 @@ const DropdownUser = () => {
             {user.first_name} {user.lastName}
           </span>
           <span className="block text-xs uppercase">
-            {user.role === "admin" && "Yönetici"}
+            {user.role === "admin" || user.role === "superadmin" ? "Admin" : ""}
           </span>
         </span>
         <svg

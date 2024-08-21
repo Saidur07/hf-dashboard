@@ -27,7 +27,10 @@ const SignInComp = () => {
         data,
       );
       console.log(res);
-      if (res.status === 200 && res.data.data.role === "admin") {
+      if (
+        (res.status === 200 || res.status === 201) &&
+        (res.data.data.role === "admin" || res.data.data.role === "superadmin")
+      ) {
         console.log(res.data.data);
         Cookies.set("accessToken", res.data.data.accessToken);
         Cookies.set("token", res.data.data.accessToken);

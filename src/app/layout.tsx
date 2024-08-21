@@ -23,7 +23,11 @@ export default function RootLayout({ children }: LayoutProps) {
     if (currentPath == "/auth/forgot") {
       setTimeout(() => setLoading(false), 1000);
     }
-    if (currentPath !== "/auth/signin" && role !== "admin") {
+    if (
+      currentPath !== "/auth/signin" &&
+      role !== "admin" &&
+      role !== "superadmin"
+    ) {
       window.location.href = "/auth/signin";
     }
     if (currentPath !== "/auth/signin" && !token) {
