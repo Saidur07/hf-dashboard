@@ -7,18 +7,16 @@ import AddAdminComp from "@/components/Admin/AddAdmin";
 
 const AddAdmin: React.FC = () => {
   const router = useRouter();
+  const role = Cookies.get("role");
 
   useEffect(() => {
-    const role = Cookies.get("role");
     if (role !== "superadmin") {
       router.push("/");
     }
-  }, [router]);
+  }, [role, router]);
 
   return (
-    <DefaultLayout>
-      <AddAdminComp />
-    </DefaultLayout>
+    <DefaultLayout>{role === "superadmin" && <AddAdminComp />}</DefaultLayout>
   );
 };
 

@@ -8,17 +8,15 @@ import AllAdminComp from "@/components/Admin/AllAdmins";
 const AllAdmins: React.FC = () => {
   const router = useRouter();
 
+  const role = Cookies.get("role");
   useEffect(() => {
-    const role = Cookies.get("role");
     if (role !== "superadmin") {
       router.push("/");
     }
-  }, [router]);
+  }, [role, router]);
 
   return (
-    <DefaultLayout>
-      <AllAdminComp />
-    </DefaultLayout>
+    <DefaultLayout>{role === "superadmin" && <AllAdminComp />}</DefaultLayout>
   );
 };
 
